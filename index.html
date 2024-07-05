@@ -5,6 +5,15 @@
     <title>laemons</title>
     <link rel="shortcut icon" href="/lemon.ico" type="image/x-icon">
     <link rel="icon" href="/lemon.ico" type="image/x-icon">
+    <script data-require="jquery" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="randomFact.js"></script>
+        <!--
+	  function getQuote(){
+		var thisquote=Math.floor(Math.random()*(quotes.length));
+		document.write(quotes[thisquote]);
+	  }
+	//-->
+	</script>
     <style>
         body {
             top: 0;
@@ -53,7 +62,8 @@
             <a href="/contact.html">contact</a>
             <br>
             <br>
-            <script src="randomFact.js"></script>
+            <button id="showLine">Show me some trivia!</button>
+    <p id="trivia"></p>
             <br>
 </body>
 

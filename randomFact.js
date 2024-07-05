@@ -1,13 +1,32 @@
-const https = require("https");
-const factURL = "https://nekos.life/api/v2/fact";
-https.get(`${factURL}`, data => {
-  console.log("\n");
-  data.on("data", chunk => {
-    let Fact = JSON.parse(chunk.toString());
-    //reply(Fact.fact)
-    console.log(Fact.fact,"\n");
-  });
-  data.on("error", err => {
-    console.error(`Error: ${err}`);
+var lines;
+var randomNumber;
+var lastRandomNumber;
+
+$(document.body).ready(function () {
+  
+  // load the trivia from the server
+  $.ajax({
+    url: 'trivia.txt'
+  }).done(function(content) {
+    
+    // normalize the line breaks, then split into lines
+    lines = content.replace(/\r\n|\r/g, '\n').trim().split('\n');
+    
+    // only set up the click handler if there were lines found
+    if (lines && lines.length) {
+      $('#showLine').on('click', function () {
+        // loop to prevent repeating the last random number
+        while (randomNumber === lastRandomNumber) {
+          randomNumber = parseInt(Math.random() * lines.length);
+          // check to prevent infinite loop
+          if (lines.length === 1) { break; }
+        }
+        // keep track of the last random number
+        lastRandomNumber = randomNumber;
+        
+        // show the corresponding line
+        $('#trivia').text(lines[randomNumber]);
+      });
+    }
   });
 });
