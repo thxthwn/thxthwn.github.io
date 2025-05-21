@@ -112,3 +112,11 @@ iframe {
     color: #333;
 }
 
+.credits {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 3rem;
+    padding-bottom: 1rem;
+}
+
