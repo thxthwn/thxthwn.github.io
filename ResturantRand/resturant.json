@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Katsu curry (กังสดาล)",
+    "hours": {
+      "opening": "17:00",
+      "closing": "23:00"
+    },
+    "location": {
+      "latitude": 16.45945119855993,
+      "longitude": 102.82462061494229
+    },
+    "category": "กังสดาล",
+    "googleMapsUrl": "https://maps.app.goo.gl/g1iAU8XcFKHQBHL67"
+  },
+  {
+    "name": "วูวู หม่าล่าทั่ง",
+    "hours": {
+      "opening": "11:00",
+      "closing": "21:30"
+    },
+    "location": {
+      "latitude": 16.460184065914152,
+      "longitude": 102.82686419902872
+    },
+    "category": "กังสดาล",
+    "googleMapsUrl": "https://maps.app.goo.gl/LfsPzbD42s3mkeLs6"
+  },
+  {
+    "name": "ไก่รสทิพย์",
+    "hours": {
+      "opening": "10:00",
+      "closing": "20:00"
+    },
+    "location": {
+      "latitude": 16.460273294833886,
+      "longitude": 102.82770437686804
+    },
+    "category": "กังสดาล",
+    "googleMapsUrl": "https://maps.app.goo.gl/LfsPzbD42s3mkeLs6"
+  }
+]

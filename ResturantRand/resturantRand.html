@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สุ่มร้านอาหาร</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap" rel="stylesheet">
+</head>
+<body>
+<h1>วันนี้กินอะไรดี?</h1>
+<button onclick="getRandomRestaurant()">สุ่มร้าน!</button>
+
+<div id="result" style="margin-top: 20px;"></div>
+<iframe id="map" width="100%" height="300" style="margin-top: 10px;" loading="lazy"></iframe>
+
+<script src="randScript.js"></script>
+</body>
+</html>
