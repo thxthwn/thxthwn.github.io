@@ -37,5 +37,31 @@
     },
     "category": "กังสดาล",
     "googleMapsUrl": "https://maps.app.goo.gl/6XtNLXeMoLkEiF7i7"
+  },
+  {
+    "name": "แสนเสน่ห์",
+    "hours": {
+      "opening": "10:30",
+      "closing": "20:00"
+    },
+    "location": {
+      "latitude": 16.462625863681275,
+      "longitude": 102.82691781528463
+    },
+    "category": "กังสดาล",
+    "googleMapsUrl": "https://maps.app.goo.gl/HhuTGSnTrVrLpuccA"
+  },
+  {
+    "name": "Style Soup",
+    "hours": {
+      "opening": "11:00",
+      "closing": "22:00"
+    },
+    "location": {
+      "latitude": 16.457939908082697,
+      "longitude": 102.82864853522945
+    },
+    "category": "กังสดาล",
+    "googleMapsUrl": "https://maps.app.goo.gl/CC3Kg75kX3JE43UDA"
   }
 ]
