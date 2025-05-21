@@ -10,8 +10,24 @@
 <body>
 <h1>วันนี้กินอะไรดี?</h1>
 <button onclick="getRandomRestaurant()">สุ่มร้าน!</button>
-
+<br>
+<br>
+<div id="category-filter" style="margin-bottom: 1.5rem;">
+  <label class="toggle-category">
+    <input type="checkbox" value="ในมอ" checked>
+    <span>ในมอ</span>
+  </label>
+  <label class="toggle-category">
+    <input type="checkbox" value="หลังมอ" checked>
+    <span>หลังมอ</span>
+  </label>
+  <label class="toggle-category">
+    <input type="checkbox" value="กังสดาล" checked>
+    <span>กังสดาล</span>
+  </label>
+</div>
 <div id="result" style="margin-top: 20px;"></div>
+<br>
 <iframe id="map" width="100%" height="300" style="margin-top: 10px;" loading="lazy"></iframe>
 
 <script src="randScript.js"></script>
@@ -27,10 +43,11 @@
       <p>โปรเจคนี้สร้างขึ้นเพื่อช่วยนักศึกษามหาวิทยาลัยขอนแก่นว่าวันนี้จะกินอะไรดี โดยโปรแกรมนี้จะช่วยสุ่มร้านอาหารโดยรอบมหาวิทยาลัยที่เปิดอยู่ (ควรตรวจสอบอีกครั้งว่าร้านเปิดหรือไม่ เป็นการใช้ข้อมูลจาก Google Maps เท่านั้น)</p>
       <br>
       <p>โปรแกรมนี้อยู่ระหว่างการพัฒนา ร้านอาหารบางร้านอาจยังไม่มีข้อมูลในระบบ สามารถ Request ร้านอาหารได้ใน Google Forms นี้: </p>
-      <a href="https://forms.gle/AaBPctSra9fuqhZk7">Forms</a>
+      <a href="https://forms.gle/AaBPctSra9fuqhZk7"><Forms></Forms></a>
     </div>
   </div>
 </div>
+
 <footer class="credits">
   สร้างโดย   <a href="https://www.instagram.com/thxth.wn">Theo</a> 🍜
 </footer>

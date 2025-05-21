@@ -14,7 +14,15 @@ function getRandomRestaurant() {
     const now = new Date();
     const currentTime = now.getHours() * 60 + now.getMinutes();
 
-    const openNow = restaurants.filter(r => {
+    // 1. ดึงประเภทที่ถูกเลือกไว้
+    const checkedCategories = Array.from(document.querySelectorAll('#category-filter input:checked'))
+        .map(checkbox => checkbox.value);
+
+    // 2. กรองร้านที่อยู่ในประเภทที่เลือก
+    let filteredRestaurants = restaurants.filter(r => checkedCategories.includes(r.category));
+
+    // 3. จากร้านที่กรองแล้ว เลือกเฉพาะที่เปิดอยู่
+    const openNow = filteredRestaurants.filter(r => {
         const [openHour, openMin] = r.hours.opening.split(':').map(Number);
         const [closeHour, closeMin] = r.hours.closing.split(':').map(Number);
         const openMins = openHour * 60 + openMin;
@@ -48,7 +56,7 @@ function getRandomRestaurant() {
             mapEl.src = `https://www.google.com/maps?q=${random.location.latitude},${random.location.longitude}&output=embed`;
         }
     }, 80); // เปลี่ยนชื่อร้านทุก 80ms
-    
+
     const random = openNow[Math.floor(Math.random() * openNow.length)];
 
     document.getElementById('result').innerHTML = `

@@ -120,3 +120,29 @@ iframe {
     padding-bottom: 1rem;
 }
 
+/* ซ่อน checkbox จริง ๆ */
+.toggle-category input[type="checkbox"] {
+    display: none;
+}
+
+/* ให้ <span> เป็นปุ่ม toggle จริงจัง */
+.toggle-category span {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    margin: 0.25rem;
+    border-radius: 999px;
+    background-color: #eee;
+    color: #333;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 1rem;
+}
+
+/* เมื่อ checkbox ถูกเลือก → ให้ span เปลี่ยนทั้งพื้นหลัง + ขอบ + สีตัวอักษร */
+.toggle-category input[type="checkbox"]:checked + span {
+    background-color: #e94e77;
+    border-color: #e94e77;
+    color: white;
+}
+

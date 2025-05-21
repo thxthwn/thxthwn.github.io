@@ -63,5 +63,18 @@
     },
     "category": "กังสดาล",
     "googleMapsUrl": "https://maps.app.goo.gl/CC3Kg75kX3JE43UDA"
+  },
+  {
+    "name": "พิสมัย",
+    "hours": {
+      "opening": "10:30",
+      "closing": "20:00"
+    },
+    "location": {
+      "latitude": 16.480683430401985,
+      "longitude": 102.8129292273102
+    },
+    "category": "หลังมอ",
+    "googleMapsUrl": "https://maps.app.goo.gl/yEwexKtVDXiW7r5Y7"
   }
 ]
