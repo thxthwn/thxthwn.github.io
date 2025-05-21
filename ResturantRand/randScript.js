@@ -28,6 +28,27 @@ function getRandomRestaurant() {
         return;
     }
 
+    let counter = 0;
+    const maxCount = 15; // แสดงชื่อร้านแบบสับ 15 ครั้ง
+    const resultEl = document.getElementById('result');
+    const mapEl = document.getElementById('map');
+
+    const interval = setInterval(() => {
+        const random = openNow[Math.floor(Math.random() * openNow.length)];
+        resultEl.innerHTML = `<h2 style="opacity: 0.5;">${random.name}</h2>`;
+        counter++;
+        if (counter >= maxCount) {
+            clearInterval(interval);
+            resultEl.innerHTML = `
+        <h2>${random.name}</h2>
+        <p>ประเภท: ${random.category}</p>
+        <p>เปิด ${random.hours.opening} - ${random.hours.closing}</p>
+        <p><a href="${random.googleMapsUrl}" target="_blank">เปิดใน Google Maps</a></p>
+      `;
+            mapEl.src = `https://www.google.com/maps?q=${random.location.latitude},${random.location.longitude}&output=embed`;
+        }
+    }, 80); // เปลี่ยนชื่อร้านทุก 80ms
+    
     const random = openNow[Math.floor(Math.random() * openNow.length)];
 
     document.getElementById('result').innerHTML = `
