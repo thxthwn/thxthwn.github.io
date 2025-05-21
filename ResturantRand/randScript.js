@@ -41,3 +41,8 @@ function getRandomRestaurant() {
     const lng = random.location.longitude;
     document.getElementById('map').src = `https://www.google.com/maps?q=${lat},${lng}&output=embed`;
 }
+
+function toggleHelp() {
+    const popup = document.getElementById('helpPopup');
+    popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
+}

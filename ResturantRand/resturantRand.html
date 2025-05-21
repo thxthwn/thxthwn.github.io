@@ -15,5 +15,21 @@
 <iframe id="map" width="100%" height="300" style="margin-top: 10px;" loading="lazy"></iframe>
 
 <script src="randScript.js"></script>
+<!-- ปุ่ม Help -->
+<button onclick="toggleHelp()" style="position: fixed; bottom: 1rem; right: 1rem;">?</button>
+
+<!-- กล่อง Help Popup -->
+<div id="helpPopup" class="help-popup">
+  <div class="help-content">
+    <span class="close-btn" onclick="toggleHelp()">&times;</span>
+    <div id="help-text">
+      <!-- ใส่ข้อความเองตรงนี้ -->
+      <p>โปรเจคนี้สร้างขึ้นเพื่อช่วยนักศึกษามหาวิทยาลัยขอนแก่นว่าวันนี้จะกินอะไรดี โดยโปรแกรมนี้จะช่วยสุ่มร้านอาหารโดยรอบมหาวิทยาลัยที่เปิดอยู่ (ควรตรวจสอบอีกครั้งว่าร้านเปิดหรือไม่ เป็นการใช้ข้อมูลจาก Google Maps เท่านั้น)</p>
+      <br>
+      <p>โปรแกรมนี้อยู่ระหว่างการพัฒนา ร้านอาหารบางร้านอาจยังไม่มีข้อมูลในระบบ สามารถ Request ร้านอาหารได้ใน Google Forms นี้: </p>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
