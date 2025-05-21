@@ -76,5 +76,71 @@
     },
     "category": "หลังมอ",
     "googleMapsUrl": "https://maps.app.goo.gl/yEwexKtVDXiW7r5Y7"
+  },
+  {
+    "name": "พีคกะแพน",
+    "hours": {
+      "opening": "09:00",
+      "closing": "18:00"
+    },
+    "location": {
+      "latitude": 16.461819237243482,
+      "longitude": 102.82791175484708
+    },
+    "category": "กังสดาล",
+    "googleMapsUrl": "https://maps.app.goo.gl/35eQkgJwyykCcwoW6"
+  },
+  {
+    "name": "MIDNIGHT SOON",
+    "hours": {
+      "opening": "10:00",
+      "closing": "21:00"
+    },
+    "location": {
+      "latitude": 16.456903152375748,
+      "longitude": 102.82564911933765
+    },
+    "category": "กังสดาล",
+    "googleMapsUrl": "https://maps.app.goo.gl/tyqY3RiU1ikQTbpVA"
+  },
+  {
+  "name": "ตู้กับข้าว",
+  "hours": {
+    "opening": "11:00",
+    "closing": "20:00"
+  },
+  "location": {
+    "latitude": 16.461852511367667,
+    "longitude": 102.82776205770575
+  },
+  "category": "กังสดาล",
+  "googleMapsUrl": "https://maps.app.goo.gl/esLt2rQ3dAdptptt9"
+  },
+  {
+    "name": "INAKAYA",
+    "hours": {
+      "opening": "12:00",
+      "closing": "20:30"
+    },
+    "location": {
+      "latitude": 16.48076203283051,
+      "longitude": 102.81785790272784
+    },
+    "category": "หลังมอ",
+    "googleMapsUrl": "https://maps.app.goo.gl/9ZdMeDQQJCGpSuLU9"
+  },
+  {
+    "name": "สาระยำ หลังมอ",
+    "hours": {
+      "opening": "16:30",
+      "closing": "22:30"
+    },
+    "location": {
+      "latitude": 16.483569074992197,
+      "longitude": 102.81561436946495
+    },
+    "category": "หลังมอ",
+    "googleMapsUrl": "https://maps.app.goo.gl/9ZdMeDQQJCGpSuLU9"
   }
+
 ]
