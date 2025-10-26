@@ -115,7 +115,7 @@
             align-items: center;
             gap: 1rem;
             position: fixed;
-            bottom: 60px; /* above navbar */
+            bottom: 60px;
             left: 0;
             width: 100%;
             background: #fff;
@@ -135,10 +135,11 @@
         }
 
         /* MEDIA QUERIES */
-        @media (max-width: 768px) {
+        @media (max-width: 769px) {
             .nav-links { display: none; }
             .hamburger { display: flex; }
-
+            .mobile-menu {
+                display: none !important; /* hide on large screens */
             h1 { font-size: 1.8rem; }
             p { font-size: 0.9rem; }
             .container { padding: 2rem 1rem 6rem; }
@@ -188,6 +189,12 @@
     function toggleMenu() {
         const menu = document.getElementById('mobileMenu');
         menu.classList.toggle('open');
+        window.addEventListener('resize', () => {
+            const menu = document.getElementById('mobileMenu');
+            if(window.innerWidth > 768) {
+                menu.classList.remove('open');
+            }
+        });
     }
 </script>
 
