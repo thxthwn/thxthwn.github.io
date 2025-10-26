@@ -185,21 +185,19 @@
 </div>
 
 <script>
+    const menu = document.getElementById('mobileMenu');
+
     function toggleMenu() {
-        const menu = document.getElementById('mobileMenu');
-
-        function toggleMenu() {
-            menu.classList.toggle('open');
-        }
-
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                menu.classList.remove('open');
-            }
-        });
-
+        menu.classList.toggle('open');
     }
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            menu.classList.remove('open');
+        }
+    });
 </script>
+
 
 </body>
 </html>
