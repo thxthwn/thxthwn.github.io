@@ -6,39 +6,58 @@
     <title>Thawin Yamkasikorn</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        /* Base Styles */
         body {
-            margin: 60;
+            margin: 0;
             font-family: 'Inter', sans-serif;
             background: #f5f5f5;
             color: #333;
         }
+
         nav {
             display: flex;
+            flex-wrap: wrap; /* Allows wrapping on small screens */
             justify-content: left;
-            gap: 2rem;
-            padding: 1rem 0;
+            gap: 1.5rem;
+            padding: 1rem 2rem;
             background: #fff;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
+
         nav a {
             text-decoration: none;
             color: #333;
             font-weight: 600;
         }
+
         .hero {
             width: 100%;
-            max-height: 600px;
             overflow: hidden;
         }
+
         .hero img {
             width: 100%;
             height: auto;
             display: block;
         }
+
         .container {
+            max-width: 1200px; /* Limits content width on large screens */
+            margin: 0 auto;
             text-align: center;
-            padding: 2rem;
+            padding: 2rem 1rem;
         }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #666;
+        }
+
         button {
             padding: 0.7rem 1.5rem;
             border: none;
@@ -49,30 +68,29 @@
             font-weight: 600;
             margin-top: 1rem;
         }
+
         button:hover {
             background: #555;
         }
-    </style>
-</head>
-<body>
 
-<nav>
-    <a href="#">Blog</a>
-    <a href="#">Garden</a>
-    <a href="#">Projects</a>
-    <a href="#">Talks</a>
-    <a href="#">Biography</a>
-    <a href="#">Contact</a>
-</nav>
+        /* Media Queries */
+        @media (max-width: 768px) {
+            nav {
+                justify-content: center;
+                gap: 1rem;
+            }
 
-<div class="hero">
-    <img src="your-hero-image.png" alt="Thawin Yamkasikorn">
-</div>
+            h1 {
+                font-size: 1.8rem;
+            }
 
-<div class="container">
-    <h1>Thawin Yamkasikorn</h1>
-    <p>(laemons)</p>
-</div>
+            p {
+                font-size: 0.9rem;
+            }
 
-</body>
-</html>
+            .container {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
