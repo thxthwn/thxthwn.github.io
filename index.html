@@ -1,72 +1,80 @@
-<!DOCTYPE html <html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-    <title>laemons</title>
-    <link rel="shortcut icon" href="/lemon.ico" type="image/x-icon">
-    <link rel="icon" href="/lemon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css" />
-    <script data-require="jquery" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="randomFact.js"></script>
-        <!--
-	  function getQuote(){
-		var thisquote=Math.floor(Math.random()*(quotes.length));
-		document.write(quotes[thisquote]);
-	  }
-	//-->
-	</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thawin Yamkasikorn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            top: 0;
-            left: 0;
-            width: 99%;
-            height: 99%;
-            position: absolute;
-            display: table
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+            color: #333;
         }
-
-        p {
-            display: table-cell;
-            vertical-align: middle;
-            text-align: center
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 0;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
+        .hero {
+            width: 100%;
+            max-height: 600px;
+            overflow: hidden;
+        }
+        .hero img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+        button {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            background: #333;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        button:hover {
+            background: #555;
         }
     </style>
 </head>
+<body>
 
-<body style="background-color: rgb(242, 239, 229);">
-    <p>
-        <font size="7">
-            <i><b>THAWIN YAMKASIKORN</b></i>
-        </font>
-        <br>
-        <font size="5"> <i>(laemons)</i>
-        </font>
-        <br>
-        <br>
-        <a href="https://ibb.co/8MPFf1D"><img src="https://i.ibb.co/9nyR1Q9/IMG-0282.jpg" alt="IMG-0282" border="0"></a>
-        <br>
-        <br>
-        <i><a href="//24timezones.com/Khon-Kaen/time" style="text-decoration: none" class="clock24"
-                id="tz24-1711351566-c11049-eyJob3VydHlwZSI6IjI0Iiwic2hvd2RhdGUiOiIwIiwic2hvd3NlY29uZHMiOiIxIiwic2hvd3RpbWV6b25lIjoiMSIsInR5cGUiOiJkIiwibGFuZyI6ImVuIn0="
-                title="current time in Khon Kaen" target="_blank" rel="nofollow">Current time in Khon Kaen</a>
-            <script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
-            <br>
-            <br>
-            <a href="/about.html">about</a>
-            //
-            <a href="/faq.html">faq</a>
-            //
-            <a href="https://www.youtube.com/@thxthwn">youtube</a>
-            //
-            <a href="/blog/works.html">works</a>
-            //
-            <a href="/contact.html">contact</a>
-            <br>
-            <br>
-            <button id="showLine">Show me some trivia!</button>
-            <br>
-    <marquee id="trivia"></marquee>
-            <br>
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Blog</a>
+    <a href="#">Garden</a>
+    <a href="#">Projects</a>
+    <a href="#">Talks</a>
+    <a href="#">Biography</a>
+    <a href="#">Contact</a>
+</nav>
+
+<div class="hero">
+    <img src="your-hero-image.png" alt="Thawin Yamkasikorn">
+</div>
+
+<div class="container">
+    <h1>Thawin Yamkasikorn</h1>
+    <p>(laemons)</p>
+    <button>Show me some trivia!</button>
+</div>
+
 </body>
-
 </html>
