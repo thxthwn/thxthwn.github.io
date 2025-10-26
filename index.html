@@ -44,8 +44,9 @@
 
         .hero img {
             width: 100%;
-            height: auto%;
+            height: 100%;
             object-fit: cover;
+            object-position: center;
             display: block;
         }
 
@@ -98,6 +99,7 @@
 
             .container {
                 padding: 1.5rem;
+                padding: 2rem 1rem 6rem; /* extra bottom padding */
             }
         }
 
@@ -120,6 +122,12 @@
                 padding: 0.5rem 1rem;
             }
         }
+
+        @media (max-width: 768px) {
+            nav a { display: none; } /* hide links */
+            .hamburger { display: flex; } /* show hamburger */
+        }
+
     </style>
 </head>
 <body>
