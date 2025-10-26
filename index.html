@@ -9,33 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <style>
         /* Base Styles */
-        body {
+        body, html {
             margin: 0;
             font-family: 'JetBrains Mono', monospace;
             background: #f5f5f5;
             color: #333;
         }
 
-        nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            padding: 1rem 2rem;
-            background: #fff;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-            z-index: 1000; /* stay on top */
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-        }
-
+        /* HERO */
         .hero {
             width: 100vw;
             height: 100vh;
@@ -50,11 +31,12 @@
             display: block;
         }
 
+        /* CONTENT */
         .container {
-            max-width: 1200px; /* Limits content width on large screens */
+            max-width: 1200px;
             margin: 0 auto;
             text-align: center;
-            padding: 2rem 1rem;
+            padding: 2rem 1rem 6rem; /* bottom padding for fixed nav */
         }
 
         h1 {
@@ -82,68 +64,120 @@
             background: #555;
         }
 
-        /* Media Queries */
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 1rem 2rem;
+            background: #fff;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        /* Nav links */
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Hamburger button */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background: #333;
+        }
+
+        /* Mobile menu (hidden by default) */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            bottom: 60px; /* above navbar */
+            left: 0;
+            width: 100%;
+            background: #fff;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        /* MEDIA QUERIES */
         @media (max-width: 768px) {
-            nav {
-                justify-content: center;
-                gap: 1rem;
-            }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
 
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            p {
-                font-size: 0.9rem;
-            }
-
-            .container {
-                padding: 1.5rem;
-                padding: 2rem 1rem 6rem; /* extra bottom padding */
-            }
+            h1 { font-size: 1.8rem; }
+            p { font-size: 0.9rem; }
+            .container { padding: 2rem 1rem 6rem; }
         }
 
         @media (max-width: 480px) {
-            nav {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.8rem;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            p {
-                font-size: 0.8rem;
-            }
-
-            button {
-                padding: 0.5rem 1rem;
-            }
+            h1 { font-size: 1.5rem; }
+            p { font-size: 0.8rem; }
+            button { padding: 0.5rem 1rem; }
         }
-
-        @media (max-width: 768px) {
-            nav a { display: none; } /* hide links */
-            .hamburger { display: flex; } /* show hamburger */
-        }
-
     </style>
 </head>
 <body>
 
+<div class="hero">
+    <img src="hero.jpg" alt="Thawin Yamkasikorn">
+</div>
+
+<div class="container">
+    <h1>Thawin Yamkasikorn</h1>
+    <p>(laemons)</p>
+    <button>Learn More</button>
+</div>
+
+<!-- NAVBAR -->
 <nav>
+    <div class="nav-links">
+        <a href="#">Blog</a>
+        <a href="#">Garden</a>
+        <a href="#">Projects</a>
+        <a href="#">Talks</a>
+        <a href="#">Biography</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
     <a href="#">Blog</a>
     <a href="#">Garden</a>
     <a href="#">Projects</a>
     <a href="#">Talks</a>
     <a href="#">Biography</a>
     <a href="#">Contact</a>
-</nav>
-
-<div class="hero">
-    <img src="hero.jpg" alt="Thawin Yamkasikorn">
 </div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+    }
+</script>
 
 </body>
 </html>
