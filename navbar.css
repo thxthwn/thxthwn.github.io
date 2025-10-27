@@ -1,3 +1,11 @@
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+
+html, body {
+    width: 100%;
+    overflow-x: hidden; /* prevents sideways scroll */
+    font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+}
+
 nav {
     position: fixed;
     bottom: 0;
@@ -11,11 +19,15 @@ nav {
     box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
     z-index: 1000;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .nav-links {
     display: flex;
     gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    text-align: right;
 }
 
 .nav-links a {
