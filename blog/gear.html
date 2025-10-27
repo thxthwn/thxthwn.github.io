@@ -23,3 +23,19 @@
         <li> laptop-1 MSI Thin GF63 12VE i5-12450h, rtx 4050
     </ul>
     updated mar 25, 2024—thxth.wn
+<div id="navbar-container"></div>
+
+<script>
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-container').innerHTML = data;
+
+            // Reinitialize mobile menu after loading
+            const menu = document.getElementById('mobileMenu');
+            window.toggleMenu = () => menu.classList.toggle('open');
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) menu.classList.remove('open');
+            });
+        });
+</script>

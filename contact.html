@@ -42,5 +42,21 @@
 
 </p>
 </body>
+<div id="navbar-container"></div>
+
+<script>
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-container').innerHTML = data;
+
+            // Reinitialize mobile menu after loading
+            const menu = document.getElementById('mobileMenu');
+            window.toggleMenu = () => menu.classList.toggle('open');
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) menu.classList.remove('open');
+            });
+        });
+</script>
 
 </html>

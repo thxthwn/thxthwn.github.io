@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<?php include 'navbar.html'; ?>
 
 <head>
     <title>works</title>
@@ -49,5 +48,21 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </p>
+<div id="navbar-container"></div>
+
+<script>
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-container').innerHTML = data;
+
+            // Reinitialize mobile menu after loading
+            const menu = document.getElementById('mobileMenu');
+            window.toggleMenu = () => menu.classList.toggle('open');
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) menu.classList.remove('open');
+            });
+        });
+</script>
 
 </html>
