@@ -1,0 +1,72 @@
+<!-- index.html -->
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Markdown Renderer</title>
+    <!-- highlight.js default style (optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+    <style>
+        body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; padding: 2rem; max-width: 900px; margin: auto;}
+        textarea{width:100%;height:200px;margin-bottom:1rem;font-family:monospace}
+        .md-output{border:1px solid #eee;padding:1rem;border-radius:8px;background:#fff}
+        pre { overflow:auto; }
+    </style>
+</head>
+<body>
+<h1>Markdown preview</h1>
+<textarea id="md"># Hello\n\n- [x] Task\n\n```js\nconsole.log("hi")\n```\n</textarea>
+<div class="md-output" id="out"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script>
+    const md = window.markdownit({
+        html: false,          // don't allow raw HTML in markdown
+        linkify: true,
+        typographer: true
+    }).use(window.markdownitTaskLists || function(){ /* no plugin fallback */ });
+
+    // basic code highlight integration
+    md.set({
+        highlight: function (str, lang) {
+            try {
+                return '<pre><code>' + hljs.highlightAuto(str, lang ? [lang] : undefined).value + '</code></pre>';
+            } catch (e) {
+                return '<pre><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+            }
+        }
+    });
+
+    const ta = document.getElementById('md');
+    const out = document.getElementById('out');
+
+    function render() {
+        const raw = ta.value;
+        const html = md.render(raw);
+        // sanitize and also add safe attributes for external links
+        const clean = DOMPurify.sanitize(html, {
+            ADD_ATTR: ['target', 'rel'] // allow us to set attributes later if needed
+        });
+        out.innerHTML = clean;
+
+        // make external links open safely
+        out.querySelectorAll('a[href]').forEach(a=>{
+            const href = a.getAttribute('href');
+            if (href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith(window.location.origin)) {
+                a.setAttribute('target','_blank');
+                a.setAttribute('rel','noopener noreferrer');
+            }
+        });
+
+        // run highlight.js on any code blocks (if needed)
+        out.querySelectorAll('pre code').forEach((el)=>hljs.highlightElement(el));
+    }
+
+    ta.addEventListener('input', render);
+    render();
+</script>
+</body>
+</html>
