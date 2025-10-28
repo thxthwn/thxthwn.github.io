@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theo’s Journal</title>
-    <link id="theme-style" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
+
+    <!-- Clean Markdown CSS -->
+    <link id="theme-style" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/markdown.css/0.5.0/markdown.min.css">
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -13,16 +15,13 @@
     <button id="theme-toggle">🌙 Dark Mode</button>
 </header>
 
-<main id="post-list" class="post-list">
-    <!-- Posts will be injected here -->
-</main>
+<main id="post-list" class="post-list"></main>
 
 <footer>Made with ☕ and Markdown</footer>
 
 <script>
     const postList = document.getElementById("post-list");
 
-    // Load posts.json
     fetch('posts.json')
         .then(res => res.json())
         .then(posts => {
@@ -30,10 +29,10 @@
                 const div = document.createElement('div');
                 div.className = "post-card";
                 div.innerHTML = `
-          <a href="post.html?file=${encodeURIComponent(post.file)}">
-            <h2>${post.title}</h2>
-            <p>${post.tags.join(", ")}</p>
-          </a>`;
+        <a href="post.html?file=${encodeURIComponent(post.file)}">
+          <h2>${post.title}</h2>
+          <p>${post.tags.join(", ")}</p>
+        </a>`;
                 postList.appendChild(div);
             });
         });
@@ -44,10 +43,10 @@
 
     function setTheme(theme) {
         if (theme === "dark") {
-            themeLink.href = "https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-dark.min.css";
+            document.body.setAttribute('data-theme', 'dark');
             toggleBtn.textContent = "☀️ Light Mode";
         } else {
-            themeLink.href = "https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css";
+            document.body.setAttribute('data-theme', 'light');
             toggleBtn.textContent = "🌙 Dark Mode";
         }
         localStorage.setItem("theme", theme);

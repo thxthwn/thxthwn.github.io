@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Theo’s Journal Post</title>
-    <link id="theme-style" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theo’s Post</title>
+
+    <link id="theme-style" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/markdown.css/0.5.0/markdown.min.css">
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -40,14 +41,12 @@
 
     // Theme toggle (same as index)
     const toggleBtn = document.getElementById("theme-toggle");
-    const themeLink = document.getElementById("theme-style");
-
     function setTheme(theme) {
         if (theme === "dark") {
-            themeLink.href = "https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-dark.min.css";
+            document.body.setAttribute('data-theme','dark');
             toggleBtn.textContent = "☀️ Light Mode";
         } else {
-            themeLink.href = "https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css";
+            document.body.setAttribute('data-theme','light');
             toggleBtn.textContent = "🌙 Dark Mode";
         }
         localStorage.setItem("theme", theme);
