@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Theo’s Blog</title>
 
-    <!-- GitHub Markdown CSS (for posts) -->
+    <!-- GitHub Markdown CSS for posts -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
 
     <!-- Custom CSS -->
@@ -23,7 +23,7 @@
 <footer>Made with ☕ and markdown</footer>
 
 <script>
-    // Add posts here; only the filename (.md) and title
+    // List your Markdown posts here
     const posts = [
         { file: "first-post.md", title: "First Post" },
         { file: "second-post.md", title: "Scent Journal" }
@@ -33,6 +33,7 @@
 
     posts.forEach(post => {
         const li = document.createElement("li");
+        // Always link to post.html?file=...
         li.innerHTML = `<a href="post.html?file=${encodeURIComponent(post.file)}">${post.title}</a>`;
         postList.appendChild(li);
     });

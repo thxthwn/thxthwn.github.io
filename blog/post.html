@@ -22,24 +22,29 @@
 
 <footer>Made with ☕ and markdown</footer>
 
-<!-- Markdown parser -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
-    const params = new URLSearchParams(window.location.search);
-    const file = params.get("file");
+    const posts = [
+        { file: "first-post.md", title: "First Post" },
+        { file: "second-post.md", title: "Scent Journal" }
+    ];
 
-    if (file) {
-        fetch(`posts/${file}`)
-            .then(res => res.text())
-            .then(md => {
-                document.getElementById("post-content").innerHTML = marked.parse(md);
-            })
-            .catch(() => {
-                document.getElementById("post-content").innerHTML = "<p>Post not found.</p>";
-            });
-    } else {
-        document.getElementById("post-content").innerHTML = "<p>No post specified.</p>";
-    }
+    const params = new URLSearchParams(window.location.search);
+    // Default to first post if none specified
+    let file = params.get("file") || posts[0].file;
+
+    // Fetch and render the Markdown
+    fetch(`posts/${file}`)
+        .then(res => {
+            if (!res.ok) throw new Error("Post not found");
+            return res.text();
+        })
+        .then(md => {
+            document.getElementById("post-content").innerHTML = marked.parse(md);
+        })
+        .catch(() => {
+            document.getElementById("post-content").innerHTML = "<p>Post not found.</p>";
+        });
 </script>
 </body>
 </html>
