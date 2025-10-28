@@ -1,19 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Blog</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theo’s Blog</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header><h1>My Blog</h1></header>
+<header>
+    <h1><a href="/">Theo’s Journal</a></h1>
+</header>
+
 <main>
-    <ul class="post-list">
-        <li><a href="post.html?post=first-post">First Post</a></li>
-        <li><a href="post.html?post=second-post">Second Post</a></li>
-        <li><a href="post.html?post=third-post">Third Post</a></li>
-    </ul>
+    <ul id="post-list" class="post-list"></ul>
 </main>
+
+<footer>Made with ☕ and markdown</footer>
+
+<script>
+    // Manually list your posts once, then never touch index.html again.
+    const posts = [
+        { file: "first-post.md", title: "First Post" },
+    ];
+
+    const postList = document.getElementById("post-list");
+
+    posts.forEach(post => {
+        const li = document.createElement("li");
+        li.innerHTML = `<a href="post.html?file=${encodeURIComponent(post.file)}">${post.title}</a>`;
+        postList.appendChild(li);
+    });
+</script>
 </body>
 </html>

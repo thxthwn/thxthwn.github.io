@@ -61,5 +61,18 @@
         document.getElementById('post-content').innerHTML = `<p>No post specified.</p>`;
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get("file");
+    if (file) {
+        fetch(`/posts/${file}`)
+            .then(res => res.text())
+            .then(md => {
+                document.getElementById("post-content").innerHTML = marked.parse(md);
+            });
+    }
+</script>
+
 </body>
 </html>
