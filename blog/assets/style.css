@@ -1,22 +1,19 @@
-/* ===== Base ===== */
+/* ===== Variables ===== */
 :root {
     --bg: #f6f8fa;
     --fg: #24292e;
-    --accent: #0969da;
+    --accent: #0366d6;
     --border: #d0d7de;
     --muted: #57606a;
     --radius: 8px;
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
+/* ===== Base ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
 }
 
 body {
@@ -31,41 +28,27 @@ body {
 header {
     max-width: 980px;
     margin: 2rem auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+}
+
+header h1 {
+    font-size: 2rem;
 }
 
 header a {
-    color: var(--accent);
     text-decoration: none;
-    font-weight: 500;
+    color: var(--accent);
 }
 
 header a:hover {
     text-decoration: underline;
 }
 
-/* ===== Page Container ===== */
-main {
-    max-width: 980px;
-    margin: 0 auto 4rem;
-}
-
-/* ===== Post Container ===== */
-.post-container {
-    background: #ffffff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: 0 1px 2px rgba(27, 31, 36, 0.04);
-    padding: 2rem;
-}
-
 /* ===== Post List ===== */
 .post-list {
     list-style: none;
+    max-width: 800px;
+    margin: 2rem auto;
     padding: 0;
-    margin-top: 2rem;
 }
 
 .post-list li {
@@ -75,14 +58,24 @@ main {
 
 .post-list a {
     font-size: 1.2rem;
+    font-weight: 500;
     color: var(--fg);
     text-decoration: none;
-    font-weight: 600;
-    transition: color 0.2s ease;
 }
 
 .post-list a:hover {
     color: var(--accent);
+}
+
+/* ===== Post container ===== */
+.post-container,
+.markdown-body {
+    max-width: 980px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 /* ===== Footer ===== */
@@ -96,14 +89,13 @@ footer {
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+    body {
+        padding: 0 0.5rem;
     }
 
-    .post-container {
-        padding: 1.2rem;
+    .post-container,
+    .markdown-body {
+        padding: 1rem;
     }
 }
 
@@ -122,7 +114,8 @@ footer {
         color: var(--fg);
     }
 
-    .post-container {
+    .post-container,
+    .markdown-body {
         background: #161b22;
         border-color: var(--border);
     }
@@ -131,8 +124,8 @@ footer {
         color: var(--accent);
     }
 
-    header a:hover,
-    .post-list a:hover {
+    .post-list a:hover,
+    header a:hover {
         color: var(--accent);
     }
 

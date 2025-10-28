@@ -1,78 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Markdown Blog</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post</title>
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="/blog/assets/style.css">
-    <link rel="stylesheet" href="/blog/assets/markdown.css">
+    <!-- GitHub Markdown CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
 
-    <style>
-        .markdown-body {
-            box-sizing: border-box;
-            min-width: 200px;
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 45px;
-        }
-
-        @media (max-width: 767px) {
-            .markdown-body {
-                padding: 15px;
-            }
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/style.css">
 </head>
-
 <body>
 <header>
-    <a href="index.html">← Home</a>
+    <a href="index.html">← Back</a>
 </header>
 
-<!-- Or dynamically loaded Markdown -->
-<main class="post-container">
+<main>
     <article id="post-content" class="markdown-body"></article>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
-<script>
-    const md = window.markdownit({
-        html: true,
-        linkify: true,
-        typographer: true
-    });
+<footer>Made with ☕ and markdown</footer>
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const postName = urlParams.get('post');
-
-    if (postName) {
-        fetch(`posts/${postName}.md`)
-            .then(res => res.text())
-            .then(text => {
-                const html = md.render(text);
-                document.getElementById('post-content').innerHTML = html;
-            })
-            .catch(() => {
-                document.getElementById('post-content').innerHTML = `<p>Post not found.</p>`;
-            });
-    } else {
-        document.getElementById('post-content').innerHTML = `<p>No post specified.</p>`;
-    }
-</script>
+<!-- Markdown parser -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
     const params = new URLSearchParams(window.location.search);
     const file = params.get("file");
+
     if (file) {
-        fetch(`/posts/${file}`)
+        fetch(`posts/${file}`)
             .then(res => res.text())
             .then(md => {
                 document.getElementById("post-content").innerHTML = marked.parse(md);
+            })
+            .catch(() => {
+                document.getElementById("post-content").innerHTML = "<p>Post not found.</p>";
             });
+    } else {
+        document.getElementById("post-content").innerHTML = "<p>No post specified.</p>";
     }
 </script>
-
 </body>
 </html>

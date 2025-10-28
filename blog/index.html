@@ -4,8 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Theo’s Blog</title>
+
+    <!-- GitHub Markdown CSS (for posts) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
-    <link rel="stylesheet" href="/blog/assets/style.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <header>
@@ -19,9 +23,10 @@
 <footer>Made with ☕ and markdown</footer>
 
 <script>
-    // Manually list your posts once, then never touch index.html again.
+    // Add posts here; only the filename (.md) and title
     const posts = [
         { file: "first-post.md", title: "First Post" },
+        { file: "second-post.md", title: "Scent Journal" }
     ];
 
     const postList = document.getElementById("post-list");
