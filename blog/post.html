@@ -3,48 +3,71 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Post</title>
-
-    <!-- GitHub Markdown CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/style.css">
+    <title>Theo’s Blog Post</title>
+    <link id="theme-style" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
     <a href="index.html">← Back</a>
+    <button id="theme-toggle">🌙 Dark Mode</button>
 </header>
 
-<main>
-    <article id="post-content" class="markdown-body"></article>
-</main>
+<main class="markdown-body" id="post-content">Loading...</main>
 
-<footer>Made with ☕ and markdown</footer>
+<footer>Made with ☕ and Markdown</footer>
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
 <script>
-    const posts = [
-        { file: "first-post.md", title: "First Post" },
-        { file: "second-post.md", title: "Scent Journal" }
-    ];
+    const md = window.markdownit({
+        html: true,
+        linkify: true,
+        typographer: true
+    });
 
-    const params = new URLSearchParams(window.location.search);
-    // Default to first post if none specified
-    let file = params.get("file") || posts[0].file;
+    const urlParams = new URLSearchParams(window.location.search);
+    const file = urlParams.get('file');
 
-    // Fetch and render the Markdown
-    fetch(`posts/${file}`)
-        .then(res => {
-            if (!res.ok) throw new Error("Post not found");
-            return res.text();
-        })
-        .then(md => {
-            document.getElementById("post-content").innerHTML = marked.parse(md);
-        })
-        .catch(() => {
-            document.getElementById("post-content").innerHTML = "<p>Post not found.</p>";
-        });
+    const postContainer = document.getElementById("post-content");
+
+    if (file) {
+        fetch(`posts/${file}`)
+            .then(res => {
+                if (!res.ok) throw new Error("Not found");
+                return res.text();
+            })
+            .then(text => {
+                postContainer.innerHTML = md.render(text);
+            })
+            .catch(() => {
+                postContainer.innerHTML = `<p>Post not found.</p>`;
+            });
+    } else {
+        postContainer.innerHTML = `<p>No post specified.</p>`;
+    }
+
+    // Theme toggle (same as index)
+    const toggleBtn = document.getElementById("theme-toggle");
+    const themeLink = document.getElementById("theme-style");
+
+    function setTheme(theme) {
+        if (theme === "dark") {
+            themeLink.href = "https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-dark.min.css";
+            toggleBtn.textContent = "☀️ Light Mode";
+        } else {
+            themeLink.href = "https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css";
+            toggleBtn.textContent = "🌙 Dark Mode";
+        }
+        localStorage.setItem("theme", theme);
+    }
+
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+
+    toggleBtn.addEventListener("click", () => {
+        const current = localStorage.getItem("theme") === "dark" ? "light" : "dark";
+        setTheme(current);
+    });
 </script>
 </body>
 </html>

@@ -3,39 +3,57 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Theo’s Blog</title>
-
-    <!-- GitHub Markdown CSS for posts -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/style.css">
+    <title>Theo’s Journal</title>
+    <link id="theme-style" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
-    <h1><a href="/">Theo’s Journal</a></h1>
+    <h1><a href="index.html">Theo’s Journal</a></h1>
+    <button id="theme-toggle">🌙 Dark Mode</button>
 </header>
 
 <main>
     <ul id="post-list" class="post-list"></ul>
 </main>
 
-<footer>Made with ☕ and markdown</footer>
+<footer>Made with ☕ and Markdown</footer>
 
 <script>
-    // List your Markdown posts here
+    // Define posts
     const posts = [
         { file: "first-post.md", title: "First Post" },
-        { file: "second-post.md", title: "Scent Journal" }
+        { file: "another-day.md", title: "Another Day" },
     ];
 
     const postList = document.getElementById("post-list");
-
     posts.forEach(post => {
         const li = document.createElement("li");
-        // Always link to post.html?file=...
         li.innerHTML = `<a href="post.html?file=${encodeURIComponent(post.file)}">${post.title}</a>`;
         postList.appendChild(li);
+    });
+
+    // Theme toggle
+    const toggleBtn = document.getElementById("theme-toggle");
+    const themeLink = document.getElementById("theme-style");
+
+    function setTheme(theme) {
+        if (theme === "dark") {
+            themeLink.href = "https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-dark.min.css";
+            toggleBtn.textContent = "☀️ Light Mode";
+        } else {
+            themeLink.href = "https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css";
+            toggleBtn.textContent = "🌙 Dark Mode";
+        }
+        localStorage.setItem("theme", theme);
+    }
+
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+
+    toggleBtn.addEventListener("click", () => {
+        const current = localStorage.getItem("theme") === "dark" ? "light" : "dark";
+        setTheme(current);
     });
 </script>
 </body>
