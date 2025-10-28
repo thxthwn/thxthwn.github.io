@@ -1,21 +1,50 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="github-markdown.css">
-<style>
- .markdown-body {
-     box-sizing: border-box;
-     min-width: 200px;
-     max-width: 980px;
-     margin: 0 auto;
-     padding: 45px;
- }
-
-@media (max-width: 767px) {
-    .markdown-body {
-        padding: 15px;
-    }
+.post-container {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 1rem 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
-</style>
-<article class="markdown-body">
-<h1>Unicorns</h1>
-<p>All the things</p>
-</article>
+
+.post-container h1, h2, h3 {
+    font-family: "Merriweather", serif;
+    color: #222;
+    margin-top: 1.5em;
+}
+
+.post-container p {
+    line-height: 1.7;
+    margin: 1em 0;
+    color: #444;
+}
+
+.post-container pre {
+    background: #f6f8fa;
+    padding: 1em;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+.post-container code {
+    background: #f0f0f0;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.post-container blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 1em;
+    color: #666;
+    font-style: italic;
+}
+
+.post-container a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.post-container a:hover {
+    text-decoration: underline;
+}
