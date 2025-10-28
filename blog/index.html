@@ -28,7 +28,7 @@
 
     posts.forEach(post => {
         const li = document.createElement("li");
-        li.innerHTML = `<a href="post.html?file=${encodeURIComponent(post.file)}">${post.title}</a>`;
+        li.innerHTML = `<a href="post.html?post=${encodeURIComponent(post.file)}">${post.title}</a>`;
         postList.appendChild(li);
     });
 </script>
