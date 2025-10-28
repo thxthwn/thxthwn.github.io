@@ -4,16 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Markdown Blog</title>
-    <link rel="stylesheet" href="assets/style.css">
-    <link rel="stylesheet" href="assets/markdown.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/blog/assets/style.css">
+    <link rel="stylesheet" href="/blog/assets/markdown.css">
+
+    <style>
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 <header>
     <a href="index.html">← Home</a>
 </header>
 
+<!-- Optional static example content -->
+<article class="markdown-body">
+    <h1>Unicorns</h1>
+    <p>All the things</p>
+</article>
+
+<!-- Or dynamically loaded Markdown -->
 <main class="post-container">
-    <article id="post-content"></article>
+    <article id="post-content" class="markdown-body"></article>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
@@ -24,7 +50,6 @@
         typographer: true
     });
 
-    // get the ?post= parameter from URL
     const urlParams = new URLSearchParams(window.location.search);
     const postName = urlParams.get('post');
 
