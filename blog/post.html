@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Markdown Blog</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/markdown.css">
+</head>
+<body>
+<header>
+    <a href="index.html">← Home</a>
+</header>
+
+<main class="post-container">
+    <article id="post-content"></article>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+<script>
+    const md = window.markdownit({
+        html: true,
+        linkify: true,
+        typographer: true
+    });
+
+    // get the ?post= parameter from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const postName = urlParams.get('post');
+
+    if (postName) {
+        fetch(`posts/${postName}.md`)
+            .then(res => res.text())
+            .then(text => {
+                const html = md.render(text);
+                document.getElementById('post-content').innerHTML = html;
+            })
+            .catch(() => {
+                document.getElementById('post-content').innerHTML = `<p>Post not found.</p>`;
+            });
+    } else {
+        document.getElementById('post-content').innerHTML = `<p>No post specified.</p>`;
+    }
+</script>
+</body>
+</html>
