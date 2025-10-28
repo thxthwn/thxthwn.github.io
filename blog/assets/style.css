@@ -1,75 +1,62 @@
 body {
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    margin: 0;
-    background-color: var(--bg);
-    color: var(--text);
+    margin:0;
+    background:#fff;
+    color:#24292f;
     transition: background 0.3s, color 0.3s;
 }
 
 header, footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em 2em;
-    background: var(--header-bg);
-    color: var(--text);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1em 2em;
+    background:#f6f8fa;
 }
 
-header a, footer a {
-    color: inherit;
-    text-decoration: none;
-}
+header h1 { font-size:1.8em; }
+header a, footer a { color:inherit; text-decoration:none; }
 
 button {
-    background: none;
-    border: 1px solid var(--text);
-    padding: 0.4em 0.8em;
-    border-radius: 4px;
-    cursor: pointer;
-    color: var(--text);
+    background:none;
+    border:1px solid currentColor;
+    padding:0.4em 0.8em;
+    border-radius:4px;
+    cursor:pointer;
 }
 
 main {
-    max-width: 800px;
-    margin: 2em auto;
-    padding: 0 1em;
+    max-width:800px;
+    margin:2em auto;
+    padding:0 1em;
 }
 
-ul.post-list {
-    list-style: none;
-    padding: 0;
+.post-list {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap:1em;
 }
 
-ul.post-list li {
-    margin: 0.5em 0;
+.post-card {
+    border:1px solid #ddd;
+    padding:1em;
+    border-radius:8px;
+    background:#fff;
+    transition:0.2s;
 }
 
-ul.post-list a {
-    text-decoration: none;
-    color: var(--accent);
-}
+.post-card:hover { box-shadow:0 4px 12px rgba(0,0,0,0.1); }
 
-ul.post-list a:hover {
-    text-decoration: underline;
-}
+.post-card a { text-decoration:none; color:#0366d6; }
+.post-card a h2 { margin:0 0 0.5em 0; }
 
-footer {
-    text-align: center;
-    padding: 1.5em;
-    font-size: 0.9em;
-}
+footer { text-align:center; padding:2em 1em; font-size:0.9em; color:#555; }
 
-/* Light & dark theme colors */
-:root {
-    --bg: #fff;
-    --text: #24292f;
-    --header-bg: #f6f8fa;
-    --accent: #0969da;
-}
-
+/* Dark theme */
 [data-theme="dark"] {
-    --bg: #0d1117;
-    --text: #c9d1d9;
-    --header-bg: #161b22;
-    --accent: #58a6ff;
+    background:#0d1117;
+    color:#c9d1d9;
 }
+
+[data-theme="dark"] header,
+[data-theme="dark"] footer { background:#161b22; color:#c9d1d9; }

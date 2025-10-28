@@ -5,33 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Theo’s Journal</title>
     <link id="theme-style" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
-    <link rel="stylesheet" href="blog/assets/style.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <header>
-    <h1><a href="index.html">Theo’s Journal</a></h1>
+    <h1>Theo’s Journal</h1>
     <button id="theme-toggle">🌙 Dark Mode</button>
 </header>
 
-<main>
-    <ul id="post-list" class="post-list"></ul>
+<main id="post-list" class="post-list">
+    <!-- Posts will be injected here -->
 </main>
 
 <footer>Made with ☕ and Markdown</footer>
 
 <script>
-    // Define posts
-    const posts = [
-        { file: "first-post.md", title: "First Post" },
-        { file: "another-day.md", title: "Another Day" },
-    ];
-
     const postList = document.getElementById("post-list");
-    posts.forEach(post => {
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="post.html?file=${encodeURIComponent(post.file)}">${post.title}</a>`;
-        postList.appendChild(li);
-    });
+
+    // Load posts.json
+    fetch('posts.json')
+        .then(res => res.json())
+        .then(posts => {
+            posts.forEach(post => {
+                const div = document.createElement('div');
+                div.className = "post-card";
+                div.innerHTML = `
+          <a href="post.html?file=${encodeURIComponent(post.file)}">
+            <h2>${post.title}</h2>
+            <p>${post.tags.join(", ")}</p>
+          </a>`;
+                postList.appendChild(div);
+            });
+        });
 
     // Theme toggle
     const toggleBtn = document.getElementById("theme-toggle");

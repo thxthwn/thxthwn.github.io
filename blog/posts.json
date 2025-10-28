@@ -1,0 +1,12 @@
+[
+  {
+    "file": "first-post.md",
+    "title": "First Post",
+    "tags": ["intro", "journal"]
+  },
+  {
+    "file": "second-post.md",
+    "title": "Scent Journal",
+    "tags": ["fragrance", "notes"]
+  }
+]
