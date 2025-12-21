@@ -1,0 +1,20 @@
+import { create } from "zustand";
+
+export const useSettingsStore = create(set => ({
+    font: "Inter",
+    colors: {
+    bg: "#0f0f0f",
+    text: "#ffffff",
+    accent: "#ff6b6b",
+},
+alarmSound: "/sounds/bell.mp3",
+durations: {
+    pomodoro: 25 * 60,
+    shortBreak: 5 * 60,
+    longBreak: 15 * 60,
+},
+setFont: font => set({ font }),
+setColors: colors => set({ colors }),
+setAlarmSound: alarmSound => set({ alarmSound }),
+setDurations: durations => set({ durations }),
+}));
