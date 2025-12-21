@@ -42,3 +42,11 @@ document.getElementById("start").onclick = start;
 document.getElementById("reset").onclick = reset;
 
 render();
+
+const settingsBtn = document.getElementById("settings-toggle");
+const settingsPanel = document.getElementById("settings");
+
+settingsBtn.onclick = () => {
+    settingsPanel.hidden = !settingsPanel.hidden;
+};
+

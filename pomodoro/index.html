@@ -22,6 +22,27 @@
     </div>
 
     <button id="settings-toggle">settings</button>
+    <section id="settings" hidden>
+        <h2>settings</h2>
+
+        <label>
+            Font
+            <select id="font-select">
+                <option value="Inter">Inter</option>
+                <option value="JetBrains Mono">JetBrains Mono</option>
+            </select>
+        </label>
+
+        <label>
+            Accent color
+            <input type="color" id="accent-color" value="#ff6b6b" />
+        </label>
+
+        <label>
+            Alarm sound
+            <input type="file" id="sound-upload" accept="audio/*" />
+        </label>
+    </section>
 </main>
 
 <script src="app.js" defer></script>
