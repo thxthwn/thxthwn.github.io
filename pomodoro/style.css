@@ -1,0 +1,39 @@
+:root {
+    --bg: #0f0f0f;
+    --text: #ffffff;
+    --accent: #ff6b6b;
+    --font: "Inter", system-ui;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+
+#timer {
+    font-size: 6rem;
+    letter-spacing: -0.05em;
+    margin-bottom: 1rem;
+}
+
+button {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1rem;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+button:hover {
+    opacity: 1;
+}

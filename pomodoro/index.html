@@ -1,17 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter&family=JetBrains+Mono&family=IBM+Plex+Sans&display=swap">
+    <title>Pomodoro</title>
 
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pomodoro</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter&family=JetBrains+Mono&display=swap">
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<main id="app">
+    <div id="timer">25:00</div>
+
+    <div id="controls">
+        <button id="start">start</button>
+        <button id="reset">reset</button>
+    </div>
+
+    <button id="settings-toggle">settings</button>
+</main>
+
+<script src="app.js" defer></script>
+</body>
 </html>
