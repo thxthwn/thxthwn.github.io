@@ -37,3 +37,18 @@ button {
 button:hover {
     opacity: 1;
 }
+
+#settings {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: grid;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+#settings label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
