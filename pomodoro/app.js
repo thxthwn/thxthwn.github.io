@@ -86,3 +86,33 @@ document.getElementById("sound-upload").onchange = e => {
 };
 
 new Audio(alarmSound).play();
+
+const settingsBackdrop = document.getElementById("settings-backdrop");
+const settingsBtn = document.getElementById("settings-toggle");
+const settingsClose = document.getElementById("settings-close");
+const settingsOk = document.getElementById("settings-ok");
+
+settingsBtn.onclick = () => {
+    settingsBackdrop.hidden = false;
+};
+
+settingsClose.onclick = settingsOk.onclick = () => {
+    settingsBackdrop.hidden = true;
+};
+
+const pomoInput = document.getElementById("pomodoro-min");
+
+pomoInput.onchange = () => {
+    duration = pomoInput.value * 60;
+    seconds = duration;
+    render();
+    localStorage.setItem("pomo", pomoInput.value);
+};
+
+const saved = localStorage.getItem("pomo");
+if (saved) pomoInput.value = saved;
+
+const volume = document.getElementById("alarm-volume");
+volume.oninput = () => {
+    alarm.volume = volume.value / 100;
+};

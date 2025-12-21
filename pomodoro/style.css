@@ -52,3 +52,51 @@ button:hover {
     justify-content: space-between;
     align-items: center;
 }
+
+#settings-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: grid;
+    place-items: center;
+    z-index: 100;
+}
+
+#settings {
+    background: #fff;
+    color: #111;
+    width: 360px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+h3 {
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+#themes button {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}

@@ -22,18 +22,83 @@
     </div>
 
     <button id="settings-toggle">settings</button>
-    <section id="settings" hidden>
-        <h2>settings</h2>
+    <div id="settings-backdrop" hidden>
+        <section id="settings">
+            <header class="settings-header">
+                <span>SETTING</span>
+                <button id="settings-close">✕</button>
+            </header>
 
-        <label>
-            Font
-            <select id="font-select">
-                <option value="Inter">Inter</option>
-                <option value="JetBrains Mono">JetBrains Mono</option>
-            </select>
-        </label>
+            <!-- TIMER -->
+            <h3>⏱ TIMER</h3>
 
-        <label>
+            <label>
+                Pomodoro
+                <input type="number" id="pomodoro-min" value="25" min="1">
+            </label>
+
+            <label>
+                Short Break
+                <input type="number" id="short-break-min" value="5" min="1">
+            </label>
+
+            <label>
+                Long Break
+                <input type="number" id="long-break-min" value="15" min="1">
+            </label>
+
+            <label class="toggle">
+                Auto Start Breaks
+                <input type="checkbox" id="auto-breaks">
+            </label>
+
+            <label class="toggle">
+                Auto Start Pomodoros
+                <input type="checkbox" id="auto-pomo">
+            </label>
+
+            <label>
+                Long Break Interval
+                <input type="number" id="long-interval" value="4" min="1">
+            </label>
+
+            <!-- SOUND -->
+            <h3>🔊 SOUND</h3>
+
+            <label>
+                Alarm Sound
+                <select id="alarm-select">
+                    <option value="kitchen">Kitchen</option>
+                    <option value="bell">Bell</option>
+                    <option value="none">None</option>
+                </select>
+            </label>
+
+            <label>
+                Volume
+                <input type="range" id="alarm-volume" min="0" max="100" value="50">
+            </label>
+
+            <label>
+                Repeat
+                <input type="number" id="alarm-repeat" value="1" min="1">
+            </label>
+
+            <!-- THEME -->
+            <h3>🎨 THEME</h3>
+
+            <div id="themes">
+                <button data-theme="red"></button>
+                <button data-theme="teal"></button>
+                <button data-theme="blue"></button>
+            </div>
+
+            <button id="settings-ok">OK</button>
+        </section>
+    </div>
+
+
+    <label>
             Accent color
             <input type="color" id="accent-color" value="#ff6b6b" />
         </label>
