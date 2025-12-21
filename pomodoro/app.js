@@ -50,3 +50,39 @@ settingsBtn.onclick = () => {
     settingsPanel.hidden = !settingsPanel.hidden;
 };
 
+document.getElementById("accent-color").oninput = e => {
+    document.documentElement.style.setProperty("--accent", e.target.value);
+    localStorage.setItem("accent", e.target.value);
+};
+
+const savedAccent = localStorage.getItem("accent");
+if (savedAccent) {
+    document.documentElement.style.setProperty("--accent", savedAccent);
+}
+
+document.getElementById("font-select").onchange = e => {
+    document.documentElement.style.setProperty(
+        "--font",
+        `"${e.target.value}", system-ui`
+    );
+    localStorage.setItem("font", e.target.value);
+};
+
+const savedFont = localStorage.getItem("font");
+if (savedFont) {
+    document.documentElement.style.setProperty(
+        "--font",
+        `"${savedFont}", system-ui`
+    );
+}
+
+let alarmSound = localStorage.getItem("sound") || "sounds/bell.mp3";
+
+document.getElementById("sound-upload").onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    alarmSound = URL.createObjectURL(file);
+    localStorage.setItem("sound", alarmSound);
+};
+
+new Audio(alarmSound).play();
