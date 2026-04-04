@@ -21,6 +21,7 @@ import { cn } from './lib/utils';
 interface DynamicEntry {
   song: MaimaiSong;
   difficulty: 'EXP' | 'MAS' | 'Re:MAS';
+  type: 'std' | 'dx';
   internalLevel: number;
   displayLevel: string;
   batchId: string;
@@ -73,11 +74,12 @@ export default function App() {
         
         matchingBatches.forEach(batch => {
           const entries = entriesMap.get(batch.id)!;
-          // Avoid duplicate songs of the exact same difficulty (same title in both std and dx)
-          if (!entries.some(e => e.song.songId === song.songId && e.difficulty === difficultyBadge)) {
+          // Avoid duplicate songs of the exact same difficulty and type
+          if (!entries.some(e => e.song.songId === song.songId && e.difficulty === difficultyBadge && e.type === sheet.type)) {
             entries.push({
               song,
               difficulty: difficultyBadge,
+              type: sheet.type,
               internalLevel: level,
               displayLevel: sheet.level,
               batchId: batch.id,
@@ -130,7 +132,7 @@ export default function App() {
   const getBatchProgress = (batchId: string) => {
     const entries = batchEntries.get(batchId) || [];
     if (entries.length === 0) return 0;
-    const completed = entries.filter(e => completedSongs.has(`${e.song.songId}-${e.difficulty}`)).length;
+    const completed = entries.filter(e => completedSongs.has(`${e.song.songId}-${e.difficulty}-${e.type}`)).length;
     return Math.round((completed / entries.length) * 100);
   };
 
@@ -150,9 +152,12 @@ export default function App() {
     
     let maxLevel = 0;
     completedSongs.forEach(key => {
-      const lastDash = key.lastIndexOf('-');
-      const songId = key.substring(0, lastDash);
-      const diff = key.substring(lastDash + 1); // EXP, MAS, Re:MAS
+      const parts = key.split('-');
+      if (parts.length < 3) return; // Skip old keys
+      
+      const type = parts.pop();
+      const diff = parts.pop(); // EXP, MAS, Re:MAS
+      const songId = parts.join('-');
       
       const song = songs.find(s => s.songId === songId);
       if (song) {
@@ -161,8 +166,10 @@ export default function App() {
         if (diff === 'EXP') mappedDiff = 'expert';
         if (diff === 'Re:MAS') mappedDiff = 'remaster';
         
-        const internalLevel = getInternalLevel(song, mappedDiff);
-        maxLevel = Math.max(maxLevel, internalLevel);
+        const sheet = song.sheets.find(s => s.difficulty === mappedDiff && s.type === type);
+        if (sheet) {
+          maxLevel = Math.max(maxLevel, sheet.internalLevelValue);
+        }
       }
     });
 
@@ -170,7 +177,7 @@ export default function App() {
     const targetMax = targetMin + 1;
 
     // Collect all valid candidate sheets across EXP/MAS/Re:MAS
-    const candidates: { song: MaimaiSong, diff: 'EXP' | 'MAS' | 'Re:MAS', internal: number, display: string }[] = [];
+    const candidates: { song: MaimaiSong, diff: 'EXP' | 'MAS' | 'Re:MAS', type: 'std' | 'dx', internal: number, display: string }[] = [];
 
     songs.forEach(s => {
       const targetSheets = s.sheets.filter(sh => ['expert', 'master', 'remaster'].includes(sh.difficulty));
@@ -181,10 +188,11 @@ export default function App() {
           if (sh.difficulty === 'expert') difficultyBadge = 'EXP';
           if (sh.difficulty === 'remaster') difficultyBadge = 'Re:MAS';
           
-          if (!completedSongs.has(`${s.songId}-${difficultyBadge}`)) {
+          if (!completedSongs.has(`${s.songId}-${difficultyBadge}-${sh.type}`)) {
             candidates.push({
               song: s,
               diff: difficultyBadge,
+              type: sh.type,
               internal: level,
               display: sh.level
             });
@@ -292,6 +300,12 @@ export default function App() {
                               "bg-red-500/20 text-red-400"
                             )}>
                               {recommendation.diff} {recommendation.display}
+                            </span>
+                             <span className={cn(
+                              "px-2 py-0.5 rounded text-[10px] font-black uppercase",
+                              recommendation.type === 'dx' ? "bg-gradient-to-r from-blue-400 to-cyan-400 text-slate-900" : "bg-slate-700 text-slate-300"
+                            )}>
+                              {recommendation.type.toUpperCase()}
                             </span>
                             <span className="text-xs text-cyan-400 font-bold bg-cyan-400/10 px-1.5 py-0.5 rounded">
                               i{recommendation.internal.toFixed(1)}
@@ -484,13 +498,19 @@ export default function App() {
                             )}>
                               {entry.difficulty} {entry.displayLevel}
                             </span>
+                             <span className={cn(
+                              "px-1.5 py-0.5 rounded text-[10px] font-black uppercase",
+                              entry.type === 'dx' ? "bg-gradient-to-r from-blue-400 to-cyan-400 text-slate-900" : "bg-slate-700 text-slate-300"
+                            )}>
+                              {entry.type.toUpperCase()}
+                            </span>
                             <span className="text-[10px] text-cyan-400 font-bold bg-cyan-400/10 px-1.5 py-0.5 rounded">
                               i{entry.internalLevel.toFixed(1)}
                             </span>
                           </div>
                         </div>
                         <button 
-                          onClick={() => toggleComplete(`${entry.song.songId}-${entry.difficulty}`)}
+                          onClick={() => toggleComplete(`${entry.song.songId}-${entry.difficulty}-${entry.type}`)}
                           className={cn(
                             "p-2 rounded-full transition-all",
                             isCompleted ? "text-blue-400 bg-blue-400/10" : "text-slate-600 hover:text-slate-400 hover:bg-white/5"
