@@ -34,13 +34,17 @@ export interface MaimaiSong {
   searchAcronyms: string[];
 }
 
+// A batch can either be level-range based (random selection) or a specific song list
 export interface Batch {
   id: string;
   name: string;
   description: string;
-  minLevel: number;
-  maxLevel: number;
-  skills: SkillCategory[];
+  // For level-range batches (Batches 1-7)
+  minLevel?: number;
+  maxLevel?: number;
+  randomCount?: [number, number]; // [min, max] songs to pick randomly
+  // For specific-song batches (Batches 8-16)
+  songTitles?: string[];
 }
 
 export type SkillCategory = 'Stamina' | 'Technical' | 'Speed' | 'Slides' | 'Trills' | 'Jackhammers' | 'General';

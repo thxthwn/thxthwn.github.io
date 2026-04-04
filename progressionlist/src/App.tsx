@@ -11,11 +11,12 @@ import {
   Dumbbell,
   Settings2,
   LayoutGrid,
-  List as ListIcon
+  List as ListIcon,
+  Shuffle
 } from 'lucide-react';
-import { MaimaiSong, Batch, SkillCategory } from './types';
+import { MaimaiSong, Batch } from './types';
 import { BATCHES } from './constants';
-import { fetchMaimaiSongs, getSheet, getInternalLevel, getImageUrl } from './services/maimaiService';
+import { fetchMaimaiSongs, getImageUrl } from './services/maimaiService';
 import { cn } from './lib/utils';
 
 interface DynamicEntry {
@@ -28,10 +29,65 @@ interface DynamicEntry {
 }
 
 interface DisplayBatch extends Batch {
-  setId: number;
-  totalSets: number;
   songCount: number;
   entries: DynamicEntry[];
+  isRandom: boolean;
+}
+
+// Seeded random for stable batch generation per session
+function seededRandom(seed: number) {
+  let s = seed;
+  return () => {
+    s = (s * 16807) % 2147483647;
+    return (s - 1) / 2147483646;
+  };
+}
+
+function shuffleArray<T>(arr: T[], rng: () => number): T[] {
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+// Song title matching helpers for curated batches
+// Some user-specified songs have hints like "(DX)", "(STD)", "(MAS)", "(Re:MAS)" 
+// We need to match the base title and filter by the hint
+interface SongMatchHint {
+  baseTitle: string;
+  typeHint?: 'std' | 'dx';
+  diffHint?: 'expert' | 'master' | 'remaster';
+}
+
+function parseSongTitle(raw: string): SongMatchHint {
+  let baseTitle = raw.trim();
+  let typeHint: 'std' | 'dx' | undefined;
+  let diffHint: 'expert' | 'master' | 'remaster' | undefined;
+
+  // Check for (DX) or (STD) suffix
+  if (/\(DX\)\s*$/i.test(baseTitle)) {
+    typeHint = 'dx';
+    baseTitle = baseTitle.replace(/\s*\(DX\)\s*$/i, '').trim();
+  } else if (/\(STD\)\s*$/i.test(baseTitle)) {
+    typeHint = 'std';
+    baseTitle = baseTitle.replace(/\s*\(STD\)\s*$/i, '').trim();
+  }
+
+  // Check for (Re:MAS), (MAS), (EXP) suffix
+  if (/\(Re:MAS\)\s*$/i.test(baseTitle)) {
+    diffHint = 'remaster';
+    baseTitle = baseTitle.replace(/\s*\(Re:MAS\)\s*$/i, '').trim();
+  } else if (/\(MAS\)\s*$/i.test(baseTitle)) {
+    diffHint = 'master';
+    baseTitle = baseTitle.replace(/\s*\(MAS\)\s*$/i, '').trim();
+  } else if (/\(EXP\)\s*$/i.test(baseTitle)) {
+    diffHint = 'expert';
+    baseTitle = baseTitle.replace(/\s*\(EXP\)\s*$/i, '').trim();
+  }
+
+  return { baseTitle, typeHint, diffHint };
 }
 
 export default function App() {
@@ -41,6 +97,14 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [completedSongs, setCompletedSongs] = useState<Set<string>>(new Set());
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [randomSeed, setRandomSeed] = useState(() => {
+    const saved = sessionStorage.getItem('maimai-random-seed');
+    return saved ? parseInt(saved) : Date.now();
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem('maimai-random-seed', randomSeed.toString());
+  }, [randomSeed]);
 
   useEffect(() => {
     async function init() {
@@ -56,78 +120,122 @@ export default function App() {
     init();
   }, []);
 
-  // Dynamically populate batches from actual song data and split into sets of ~20
+  const rerollRandomBatches = () => {
+    const newSeed = Date.now();
+    setRandomSeed(newSeed);
+    sessionStorage.setItem('maimai-random-seed', newSeed.toString());
+  };
+
+  // Build display batches from song data
   const displayBatches = useMemo(() => {
     if (songs.length === 0) return [];
-    
-    const entriesMap = new Map<string, DynamicEntry[]>();
-    BATCHES.forEach(b => entriesMap.set(b.id, []));
 
-    songs.forEach(song => {
-      const targetSheets = song.sheets.filter(s => ['expert', 'master', 'remaster'].includes(s.difficulty));
-      targetSheets.forEach(sheet => {
-        const level = sheet.internalLevelValue;
-        if (level <= 0) return;
-
-        let difficultyBadge: 'EXP' | 'MAS' | 'Re:MAS' = 'MAS';
-        if (sheet.difficulty === 'expert') difficultyBadge = 'EXP';
-        if (sheet.difficulty === 'remaster') difficultyBadge = 'Re:MAS';
-
-        const matchingBatches = BATCHES.filter(b => level >= b.minLevel && level <= b.maxLevel);
-        matchingBatches.forEach(batch => {
-          const entries = entriesMap.get(batch.id)!;
-          if (!entries.some(e => e.song.songId === song.songId && e.difficulty === difficultyBadge && e.type === sheet.type)) {
-            entries.push({
-              song,
-              difficulty: difficultyBadge,
-              type: sheet.type,
-              internalLevel: level,
-              displayLevel: sheet.level,
-              batchId: batch.id,
-            });
-          }
-        });
-      });
-    });
-
-    const finalDisplayBatches: DisplayBatch[] = [];
+    const rng = seededRandom(randomSeed);
+    const result: DisplayBatch[] = [];
 
     BATCHES.forEach(batch => {
-      const allEntries = entriesMap.get(batch.id) || [];
-      if (allEntries.length === 0) return;
+      if (batch.songTitles && batch.songTitles.length > 0) {
+        // Curated song list batch
+        const entries: DynamicEntry[] = [];
 
-      // Sort by internal level to prepare for even distribution
-      allEntries.sort((a, b) => a.internalLevel - b.internalLevel);
-
-      const targetPerSet = 20;
-      const numSets = Math.max(1, Math.ceil(allEntries.length / targetPerSet));
-      
-      // Create sub-batches (Sets)
-      for (let i = 0; i < numSets; i++) {
-        // Distribute difficulty evenly: 
-        // Instead of taking a contiguous chunk [0-20], [21-40]...
-        // we take every Nth song to ensure each set has low and high levels from the range.
-        const setEntries: DynamicEntry[] = [];
-        for (let j = i; j < allEntries.length; j += numSets) {
-          setEntries.push(allEntries[j]);
-        }
-
-        if (setEntries.length > 0) {
-          finalDisplayBatches.push({
-            ...batch,
-            id: `${batch.id}-set${i + 1}`,
-            name: numSets > 1 ? `${batch.name} (Set ${i + 1}/${numSets})` : batch.name,
-            totalSets: numSets,
-            setId: i + 1,
-            songCount: setEntries.length,
-            entries: setEntries
+        batch.songTitles.forEach(rawTitle => {
+          const hint = parseSongTitle(rawTitle);
+          
+          // Find matching song by title (fuzzy: case-insensitive, trimmed)
+          const matchingSongs = songs.filter(s => {
+            const songTitle = s.title.trim().toLowerCase();
+            const searchTitle = hint.baseTitle.toLowerCase();
+            return songTitle === searchTitle || songTitle.includes(searchTitle) || searchTitle.includes(songTitle);
           });
-        }
+
+          if (matchingSongs.length === 0) return;
+
+          // For each matching song, find the best sheet
+          matchingSongs.forEach(song => {
+            const candidateSheets = song.sheets.filter(s => {
+              if (!['expert', 'master', 'remaster'].includes(s.difficulty)) return false;
+              if (hint.typeHint && s.type !== hint.typeHint) return false;
+              if (hint.diffHint && s.difficulty !== hint.diffHint) return false;
+              return true;
+            });
+
+            if (candidateSheets.length === 0) return;
+
+            // Pick the highest difficulty sheet if no hint, or the matching one
+            const sheet = candidateSheets.sort((a, b) => {
+              const diffOrder = { expert: 0, master: 1, remaster: 2 };
+              return (diffOrder[b.difficulty as keyof typeof diffOrder] || 0) - (diffOrder[a.difficulty as keyof typeof diffOrder] || 0);
+            })[0];
+
+            let difficultyBadge: 'EXP' | 'MAS' | 'Re:MAS' = 'MAS';
+            if (sheet.difficulty === 'expert') difficultyBadge = 'EXP';
+            if (sheet.difficulty === 'remaster') difficultyBadge = 'Re:MAS';
+
+            // Avoid duplicates
+            if (!entries.some(e => e.song.songId === song.songId && e.difficulty === difficultyBadge && e.type === sheet.type)) {
+              entries.push({
+                song,
+                difficulty: difficultyBadge,
+                type: sheet.type,
+                internalLevel: sheet.internalLevelValue,
+                displayLevel: sheet.level,
+                batchId: batch.id,
+              });
+            }
+          });
+        });
+
+        result.push({
+          ...batch,
+          songCount: entries.length,
+          entries,
+          isRandom: false,
+        });
+      } else if (batch.minLevel !== undefined && batch.maxLevel !== undefined) {
+        // Level-range based random batch
+        const allCandidates: DynamicEntry[] = [];
+
+        songs.forEach(song => {
+          const targetSheets = song.sheets.filter(s => ['expert', 'master', 'remaster'].includes(s.difficulty));
+          targetSheets.forEach(sheet => {
+            const level = sheet.internalLevelValue;
+            if (level <= 0) return;
+            if (level < batch.minLevel! || level > batch.maxLevel!) return;
+
+            let difficultyBadge: 'EXP' | 'MAS' | 'Re:MAS' = 'MAS';
+            if (sheet.difficulty === 'expert') difficultyBadge = 'EXP';
+            if (sheet.difficulty === 'remaster') difficultyBadge = 'Re:MAS';
+
+            if (!allCandidates.some(e => e.song.songId === song.songId && e.difficulty === difficultyBadge && e.type === sheet.type)) {
+              allCandidates.push({
+                song,
+                difficulty: difficultyBadge,
+                type: sheet.type,
+                internalLevel: level,
+                displayLevel: sheet.level,
+                batchId: batch.id,
+              });
+            }
+          });
+        });
+
+        // Pick random count from the candidates
+        const [minCount, maxCount] = batch.randomCount || [7, 7];
+        const count = minCount + Math.floor(rng() * (maxCount - minCount + 1));
+        const shuffled = shuffleArray(allCandidates, rng);
+        const picked = shuffled.slice(0, Math.min(count, shuffled.length));
+
+        result.push({
+          ...batch,
+          songCount: picked.length,
+          entries: picked,
+          isRandom: true,
+        });
       }
     });
 
-    return finalDisplayBatches;
-  }, [songs]);
+    return result;
+  }, [songs, randomSeed]);
 
   const toggleComplete = (songKey: string) => {
     const newSet = new Set(completedSongs);
@@ -184,15 +292,14 @@ export default function App() {
     let maxLevel = 0;
     completedSongs.forEach(key => {
       const parts = key.split('-');
-      if (parts.length < 3) return; // Skip old keys
+      if (parts.length < 3) return;
       
       const type = parts.pop();
-      const diff = parts.pop(); // EXP, MAS, Re:MAS
+      const diff = parts.pop();
       const songId = parts.join('-');
       
       const song = songs.find(s => s.songId === songId);
       if (song) {
-        // Map back EXP/MAS/Re:MAS to expert/master/remaster
         let mappedDiff = 'master';
         if (diff === 'EXP') mappedDiff = 'expert';
         if (diff === 'Re:MAS') mappedDiff = 'remaster';
@@ -207,7 +314,6 @@ export default function App() {
     const targetMin = maxLevel || 10;
     const targetMax = targetMin + 1;
 
-    // Collect all valid candidate sheets across EXP/MAS/Re:MAS
     const candidates: { song: MaimaiSong, diff: 'EXP' | 'MAS' | 'Re:MAS', type: 'std' | 'dx', internal: number, display: string }[] = [];
 
     songs.forEach(s => {
@@ -247,11 +353,6 @@ export default function App() {
     );
   }
 
-  const getRecommendationLevel = () => {
-    if (!recommendation) return null;
-    return recommendation.internal.toFixed(1);
-  };
-
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-slate-200 font-sans selection:bg-blue-500/30">
       {/* Header */}
@@ -280,6 +381,13 @@ export default function App() {
                 className="bg-white/5 border border-white/10 rounded-full py-2 pl-10 pr-4 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm"
               />
             </div>
+            <button 
+              onClick={rerollRandomBatches}
+              className="p-2 hover:bg-white/5 rounded-full transition-colors group"
+              title="Re-roll random batches"
+            >
+              <Shuffle className="w-5 h-5 text-slate-400 group-hover:text-blue-400 transition-colors" />
+            </button>
             <button className="p-2 hover:bg-white/5 rounded-full transition-colors">
               <Settings2 className="w-5 h-5 text-slate-400" />
             </button>
@@ -413,11 +521,20 @@ export default function App() {
                   
                   <div className="flex justify-between items-start mb-4">
                     <div className="p-3 rounded-2xl bg-blue-500/10 text-blue-400 group-hover:scale-110 transition-transform">
-                      <LayoutGrid className="w-6 h-6" />
+                      {batch.isRandom ? <Shuffle className="w-6 h-6" /> : <LayoutGrid className="w-6 h-6" />}
                     </div>
                     <div className="text-right">
-                      <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Level Range</span>
-                      <p className="text-lg font-bold text-white">{batch.minLevel} - {batch.maxLevel}</p>
+                      {batch.minLevel !== undefined && batch.maxLevel !== undefined ? (
+                        <>
+                          <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Level Range</span>
+                          <p className="text-lg font-bold text-white">{batch.minLevel} – {batch.maxLevel}</p>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Curated</span>
+                          <p className="text-lg font-bold text-white">{batch.songCount} songs</p>
+                        </>
+                      )}
                     </div>
                   </div>
 
@@ -426,13 +543,11 @@ export default function App() {
 
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-xs text-slate-500 font-medium">{batch.songCount} songs</span>
-                    <div className="flex flex-wrap gap-1">
-                      {batch.skills.map(skill => (
-                        <span key={skill} className="px-2 py-0.5 rounded-md bg-white/5 text-[10px] font-bold text-slate-500 uppercase tracking-tighter">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
+                    {batch.isRandom && (
+                      <span className="px-2 py-0.5 rounded-md bg-amber-500/10 text-[10px] font-bold text-amber-400 uppercase tracking-tighter">
+                        Random
+                      </span>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -468,6 +583,18 @@ export default function App() {
                   Back to Batches
                 </button>
                 <div className="flex items-center gap-4">
+                  {selectedBatch.isRandom && (
+                    <button
+                      onClick={() => {
+                        rerollRandomBatches();
+                        setSelectedBatch(null);
+                      }}
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 transition-colors text-sm font-medium"
+                    >
+                      <Shuffle className="w-4 h-4" />
+                      Re-roll
+                    </button>
+                  )}
                   <div className="flex bg-white/5 p-1 rounded-xl border border-white/10">
                     <button 
                       onClick={() => setViewMode('grid')}
@@ -488,7 +615,17 @@ export default function App() {
               <div className="p-8 rounded-3xl bg-white/5 border border-white/10">
                 <h2 className="text-3xl font-bold text-white mb-2">{selectedBatch.name}</h2>
                 <p className="text-slate-400 max-w-2xl mb-3">{selectedBatch.description}</p>
-                <span className="text-xs text-slate-500 font-medium">{currentBatchEntries.length} songs · Level {selectedBatch.minLevel} – {selectedBatch.maxLevel}</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-slate-500 font-medium">
+                    {currentBatchEntries.length} songs
+                    {selectedBatch.minLevel !== undefined && ` · Level ${selectedBatch.minLevel} – ${selectedBatch.maxLevel}`}
+                  </span>
+                  {selectedBatch.isRandom && (
+                    <span className="px-2 py-0.5 rounded-md bg-amber-500/10 text-[10px] font-bold text-amber-400 uppercase">
+                      Randomly selected
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* Song List */}
