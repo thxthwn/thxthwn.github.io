@@ -301,12 +301,17 @@ export default function App() {
                             )}>
                               {recommendation.diff} {recommendation.display}
                             </span>
-                             <span className={cn(
-                              "px-2 py-0.5 rounded text-[10px] font-black uppercase",
-                              recommendation.type === 'dx' ? "bg-gradient-to-r from-blue-400 to-cyan-400 text-slate-900" : "bg-slate-700 text-slate-300"
-                            )}>
-                              {recommendation.type.toUpperCase()}
-                            </span>
+                             {recommendation.type === 'dx' ? (
+                               <span className="bg-white px-2 py-0.5 rounded text-[10px] font-black uppercase shadow-sm border border-white/10">
+                                 <span className="bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                                   DX
+                                 </span>
+                               </span>
+                             ) : (
+                               <span className="bg-blue-600 text-white px-2 py-0.5 rounded text-[10px] font-black uppercase">
+                                 STD
+                               </span>
+                             )}
                             <span className="text-xs text-cyan-400 font-bold bg-cyan-400/10 px-1.5 py-0.5 rounded">
                               i{recommendation.internal.toFixed(1)}
                             </span>
@@ -498,12 +503,17 @@ export default function App() {
                             )}>
                               {entry.difficulty} {entry.displayLevel}
                             </span>
-                             <span className={cn(
-                              "px-1.5 py-0.5 rounded text-[10px] font-black uppercase",
-                              entry.type === 'dx' ? "bg-gradient-to-r from-blue-400 to-cyan-400 text-slate-900" : "bg-slate-700 text-slate-300"
-                            )}>
-                              {entry.type.toUpperCase()}
-                            </span>
+                             {entry.type === 'dx' ? (
+                               <span className="bg-white px-1.5 py-0.5 rounded text-[10px] font-black uppercase shadow-sm border border-white/10">
+                                 <span className="bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                                   DX
+                                 </span>
+                               </span>
+                             ) : (
+                               <span className="bg-blue-600 text-white px-1.5 py-0.5 rounded text-[10px] font-black uppercase">
+                                 STD
+                               </span>
+                             )}
                             <span className="text-[10px] text-cyan-400 font-bold bg-cyan-400/10 px-1.5 py-0.5 rounded">
                               i{entry.internalLevel.toFixed(1)}
                             </span>
