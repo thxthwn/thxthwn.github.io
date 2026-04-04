@@ -1,2 +1,8 @@
 repository: thxthwn/thxthwn.github.io
 theme: jekyll-theme-primer
+
+exclude:
+  - "node_modules"
+  - "progressionlist/node_modules"
+  - "vendor"
+  - ".gemini"
