@@ -277,7 +277,10 @@ export default function App() {
                     </span>
                     <h2 className="text-3xl font-bold mb-4">Your Next Challenge</h2>
                     {recommendation ? (
-                      <div className="flex items-center gap-6">
+                      <div 
+                        className="flex items-center gap-6 cursor-pointer group/rec transition-all hover:bg-white/5 p-4 -m-4 rounded-3xl"
+                        onClick={() => toggleComplete(`${recommendation.song.songId}-${recommendation.diff}-${recommendation.type}`)}
+                      >
                         <div className="w-24 h-24 rounded-2xl bg-slate-800 flex-shrink-0 overflow-hidden border border-white/10">
                            <img 
                             src={getImageUrl(recommendation.song)}
@@ -463,7 +466,7 @@ export default function App() {
                 viewMode === 'grid' ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"
               )}>
                 {currentBatchEntries.map((entry, idx) => {
-                  const isCompleted = completedSongs.has(`${entry.song.songId}-${entry.difficulty}`);
+                  const isCompleted = completedSongs.has(`${entry.song.songId}-${entry.difficulty}-${entry.type}`);
 
                   return (
                     <motion.div
@@ -472,11 +475,12 @@ export default function App() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: Math.min(idx * 0.02, 0.5) }}
                       className={cn(
-                        "group relative p-4 rounded-2xl border transition-all",
+                        "group relative p-4 rounded-2xl border transition-all cursor-pointer",
                         isCompleted 
-                          ? "bg-blue-500/5 border-blue-500/30" 
-                          : "bg-white/5 border-white/10 hover:border-white/20"
+                          ? "bg-blue-500/10 border-blue-500/40 shadow-lg shadow-blue-500/10" 
+                          : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/[0.07]"
                       )}
+                      onClick={() => toggleComplete(`${entry.song.songId}-${entry.difficulty}-${entry.type}`)}
                     >
                       <div className="flex items-center gap-4">
                         <div className="w-16 h-16 rounded-xl bg-slate-800 flex-shrink-0 overflow-hidden border border-white/10">
@@ -519,15 +523,14 @@ export default function App() {
                             </span>
                           </div>
                         </div>
-                        <button 
-                          onClick={() => toggleComplete(`${entry.song.songId}-${entry.difficulty}-${entry.type}`)}
+                        <div 
                           className={cn(
                             "p-2 rounded-full transition-all",
-                            isCompleted ? "text-blue-400 bg-blue-400/10" : "text-slate-600 hover:text-slate-400 hover:bg-white/5"
+                            isCompleted ? "text-blue-400 bg-blue-400/10" : "text-slate-600 group-hover:text-slate-400 group-hover:bg-white/5"
                           )}
                         >
                           {isCompleted ? <CheckCircle2 className="w-6 h-6" /> : <Circle className="w-6 h-6" />}
-                        </button>
+                        </div>
                       </div>
                     </motion.div>
                   );
