@@ -1,0 +1,6 @@
+# Exclude folders from Jekyll processing to speed up builds and prevent errors
+exclude:
+  - "progressionlist/node_modules"
+  - "node_modules"
+  - "vendor"
+  - ".gemini"
