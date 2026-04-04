@@ -27,10 +27,17 @@ interface DynamicEntry {
   batchId: string;
 }
 
+interface DisplayBatch extends Batch {
+  setId: number;
+  totalSets: number;
+  songCount: number;
+  entries: DynamicEntry[];
+}
+
 export default function App() {
   const [songs, setSongs] = useState<MaimaiSong[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedBatch, setSelectedBatch] = useState<Batch | null>(null);
+  const [selectedBatch, setSelectedBatch] = useState<DisplayBatch | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [completedSongs, setCompletedSongs] = useState<Set<string>>(new Set());
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -49,32 +56,26 @@ export default function App() {
     init();
   }, []);
 
-  // Dynamically populate batches from actual song data
-  const batchEntries = useMemo(() => {
-    if (songs.length === 0) return new Map<string, DynamicEntry[]>();
+  // Dynamically populate batches from actual song data and split into sets of ~20
+  const displayBatches = useMemo(() => {
+    if (songs.length === 0) return [];
     
     const entriesMap = new Map<string, DynamicEntry[]>();
     BATCHES.forEach(b => entriesMap.set(b.id, []));
 
     songs.forEach(song => {
-      // Check expert, master, and remaster difficulty sheets
       const targetSheets = song.sheets.filter(s => ['expert', 'master', 'remaster'].includes(s.difficulty));
-      
       targetSheets.forEach(sheet => {
         const level = sheet.internalLevelValue;
         if (level <= 0) return;
 
-        // Map difficulty internally
         let difficultyBadge: 'EXP' | 'MAS' | 'Re:MAS' = 'MAS';
         if (sheet.difficulty === 'expert') difficultyBadge = 'EXP';
         if (sheet.difficulty === 'remaster') difficultyBadge = 'Re:MAS';
 
-        // Find all matching batches for this level (in case of overlaps like 14.8)
         const matchingBatches = BATCHES.filter(b => level >= b.minLevel && level <= b.maxLevel);
-        
         matchingBatches.forEach(batch => {
           const entries = entriesMap.get(batch.id)!;
-          // Avoid duplicate songs of the exact same difficulty and type
           if (!entries.some(e => e.song.songId === song.songId && e.difficulty === difficultyBadge && e.type === sheet.type)) {
             entries.push({
               song,
@@ -89,12 +90,43 @@ export default function App() {
       });
     });
 
-    // Sort entries within each batch by internal level
-    entriesMap.forEach((entries, key) => {
-      entries.sort((a, b) => a.internalLevel - b.internalLevel);
+    const finalDisplayBatches: DisplayBatch[] = [];
+
+    BATCHES.forEach(batch => {
+      const allEntries = entriesMap.get(batch.id) || [];
+      if (allEntries.length === 0) return;
+
+      // Sort by internal level to prepare for even distribution
+      allEntries.sort((a, b) => a.internalLevel - b.internalLevel);
+
+      const targetPerSet = 20;
+      const numSets = Math.max(1, Math.ceil(allEntries.length / targetPerSet));
+      
+      // Create sub-batches (Sets)
+      for (let i = 0; i < numSets; i++) {
+        // Distribute difficulty evenly: 
+        // Instead of taking a contiguous chunk [0-20], [21-40]...
+        // we take every Nth song to ensure each set has low and high levels from the range.
+        const setEntries: DynamicEntry[] = [];
+        for (let j = i; j < allEntries.length; j += numSets) {
+          setEntries.push(allEntries[j]);
+        }
+
+        if (setEntries.length > 0) {
+          finalDisplayBatches.push({
+            ...batch,
+            id: `${batch.id}-set${i + 1}`,
+            name: numSets > 1 ? `${batch.name} (Set ${i + 1}/${numSets})` : batch.name,
+            totalSets: numSets,
+            setId: i + 1,
+            songCount: setEntries.length,
+            entries: setEntries
+          });
+        }
+      }
     });
 
-    return entriesMap;
+    return finalDisplayBatches;
   }, [songs]);
 
   const toggleComplete = (songKey: string) => {
@@ -109,16 +141,16 @@ export default function App() {
   };
 
   const filteredBatches = useMemo(() => {
-    if (!searchQuery) return BATCHES;
-    return BATCHES.filter(b => 
+    if (!searchQuery) return displayBatches;
+    return displayBatches.filter(b => 
       b.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       b.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [searchQuery]);
+  }, [displayBatches, searchQuery]);
 
   const currentBatchEntries = useMemo(() => {
     if (!selectedBatch) return [];
-    let entries = batchEntries.get(selectedBatch.id) || [];
+    let entries = selectedBatch.entries;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       entries = entries.filter(e => 
@@ -127,24 +159,23 @@ export default function App() {
       );
     }
     return entries;
-  }, [selectedBatch, batchEntries, searchQuery]);
+  }, [selectedBatch, searchQuery]);
 
-  const getBatchProgress = (batchId: string) => {
-    const entries = batchEntries.get(batchId) || [];
-    if (entries.length === 0) return 0;
-    const completed = entries.filter(e => completedSongs.has(`${e.song.songId}-${e.difficulty}-${e.type}`)).length;
-    return Math.round((completed / entries.length) * 100);
+  const getBatchProgress = (batch: DisplayBatch) => {
+    if (batch.songCount === 0) return 0;
+    const completed = batch.entries.filter(e => completedSongs.has(`${e.song.songId}-${e.difficulty}-${e.type}`)).length;
+    return Math.round((completed / batch.songCount) * 100);
   };
 
-  const getBatchSongCount = (batchId: string) => {
-    return (batchEntries.get(batchId) || []).length;
-  };
-
-  const totalEntries = useMemo(() => {
-    let total = 0;
-    batchEntries.forEach(entries => total += entries.length);
-    return total;
-  }, [batchEntries]);
+  const totalEntriesCount = useMemo(() => {
+    const uniqueKeys = new Set<string>();
+    displayBatches.forEach(batch => {
+      batch.entries.forEach(e => {
+        uniqueKeys.add(`${e.song.songId}-${e.difficulty}-${e.type}`);
+      });
+    });
+    return uniqueKeys.size;
+  }, [displayBatches]);
 
   // Comprehensible Input Recommendation
   const recommendation = useMemo(() => {
@@ -340,13 +371,13 @@ export default function App() {
                     <div className="flex justify-between text-sm">
                       <span className="text-slate-400">Overall Completion</span>
                       <span className="text-blue-400 font-bold">
-                        {Math.round((completedSongs.size / (totalEntries || 1)) * 100)}%
+                        {Math.round((completedSongs.size / (totalEntriesCount || 1)) * 100)}%
                       </span>
                     </div>
                     <div className="h-2 bg-white/5 rounded-full overflow-hidden">
                       <motion.div 
                         initial={{ width: 0 }}
-                        animate={{ width: `${(completedSongs.size / (totalEntries || 1)) * 100}%` }}
+                        animate={{ width: `${(completedSongs.size / (totalEntriesCount || 1)) * 100}%` }}
                         className="h-full bg-gradient-to-r from-blue-500 to-cyan-400"
                       />
                     </div>
@@ -394,7 +425,7 @@ export default function App() {
                   <p className="text-sm text-slate-400 line-clamp-2 mb-4">{batch.description}</p>
 
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs text-slate-500 font-medium">{getBatchSongCount(batch.id)} songs</span>
+                    <span className="text-xs text-slate-500 font-medium">{batch.songCount} songs</span>
                     <div className="flex flex-wrap gap-1">
                       {batch.skills.map(skill => (
                         <span key={skill} className="px-2 py-0.5 rounded-md bg-white/5 text-[10px] font-bold text-slate-500 uppercase tracking-tighter">
@@ -407,12 +438,12 @@ export default function App() {
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs font-bold">
                       <span className="text-slate-500">PROGRESS</span>
-                      <span className="text-blue-400">{getBatchProgress(batch.id)}%</span>
+                      <span className="text-blue-400">{getBatchProgress(batch)}%</span>
                     </div>
                     <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-blue-500 transition-all duration-500" 
-                        style={{ width: `${getBatchProgress(batch.id)}%` }}
+                        style={{ width: `${getBatchProgress(batch)}%` }}
                       />
                     </div>
                   </div>
