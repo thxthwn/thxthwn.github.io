@@ -97,14 +97,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [completedSongs, setCompletedSongs] = useState<Set<string>>(new Set());
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [randomSeed, setRandomSeed] = useState(() => {
-    const saved = sessionStorage.getItem('maimai-random-seed');
-    return saved ? parseInt(saved) : Date.now();
-  });
-
-  useEffect(() => {
-    sessionStorage.setItem('maimai-random-seed', randomSeed.toString());
-  }, [randomSeed]);
+  const [randomSeed, setRandomSeed] = useState(1337); // Static seed for stable progression list
 
   useEffect(() => {
     async function init() {
@@ -120,11 +113,6 @@ export default function App() {
     init();
   }, []);
 
-  const rerollRandomBatches = () => {
-    const newSeed = Date.now();
-    setRandomSeed(newSeed);
-    sessionStorage.setItem('maimai-random-seed', newSeed.toString());
-  };
 
   // Build display batches from song data
   const displayBatches = useMemo(() => {
@@ -145,7 +133,8 @@ export default function App() {
           const matchingSongs = songs.filter(s => {
             const songTitle = s.title.trim().toLowerCase();
             const searchTitle = hint.baseTitle.toLowerCase();
-            return songTitle === searchTitle || songTitle.includes(searchTitle) || searchTitle.includes(songTitle);
+            if (!songTitle || !searchTitle) return false;
+            return songTitle === searchTitle || songTitle.includes(searchTitle);
           });
 
           if (matchingSongs.length === 0) return;
@@ -381,13 +370,6 @@ export default function App() {
                 className="bg-white/5 border border-white/10 rounded-full py-2 pl-10 pr-4 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm"
               />
             </div>
-            <button 
-              onClick={rerollRandomBatches}
-              className="p-2 hover:bg-white/5 rounded-full transition-colors group"
-              title="Re-roll random batches"
-            >
-              <Shuffle className="w-5 h-5 text-slate-400 group-hover:text-blue-400 transition-colors" />
-            </button>
             <button className="p-2 hover:bg-white/5 rounded-full transition-colors">
               <Settings2 className="w-5 h-5 text-slate-400" />
             </button>
@@ -583,18 +565,7 @@ export default function App() {
                   Back to Batches
                 </button>
                 <div className="flex items-center gap-4">
-                  {selectedBatch.isRandom && (
-                    <button
-                      onClick={() => {
-                        rerollRandomBatches();
-                        setSelectedBatch(null);
-                      }}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 transition-colors text-sm font-medium"
-                    >
-                      <Shuffle className="w-4 h-4" />
-                      Re-roll
-                    </button>
-                  )}
+
                   <div className="flex bg-white/5 p-1 rounded-xl border border-white/10">
                     <button 
                       onClick={() => setViewMode('grid')}
