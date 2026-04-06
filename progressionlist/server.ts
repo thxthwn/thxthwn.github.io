@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
@@ -13,7 +14,9 @@ async function startServer() {
   // API Proxy for dxdata.json (song data + internal levels) to bypass CORS
   app.get("/api/dxdata", async (req, res) => {
     try {
-      const response = await fetch("https://raw.githubusercontent.com/gekichumai/dxrating/main/packages/dxdata/dxdata.json");
+      const dxdataUrl = process.env.VITE_DXDATA_URL;
+      if (!dxdataUrl) throw new Error("VITE_DXDATA_URL is missing in .env");
+      const response = await fetch(dxdataUrl);
       if (!response.ok) throw new Error("Failed to fetch dxdata");
       const data = await response.json();
       res.json(data);
@@ -27,7 +30,9 @@ async function startServer() {
   app.get("/api/img/:filename", async (req, res) => {
     try {
       const { filename } = req.params;
-      const imageUrl = `https://shama.dxrating.net/images/cover/v2/${filename}`;
+      const coverBaseUrl = process.env.VITE_COVER_BASE_URL;
+      if (!coverBaseUrl) throw new Error("VITE_COVER_BASE_URL is missing in .env");
+      const imageUrl = `${coverBaseUrl}${filename}`;
       const response = await fetch(imageUrl);
       if (!response.ok) throw new Error("Image not found");
       const contentType = response.headers.get("content-type") || "image/jpeg";

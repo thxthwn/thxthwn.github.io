@@ -1,10 +1,15 @@
+import "dotenv/config";
 import fs from 'fs';
 
 async function testTitleMatch() {
-  const dxResponse = await fetch("https://raw.githubusercontent.com/gekichumai/dxrating/main/packages/dxdata/dxdata.json");
+  const dxdataUrl = process.env.VITE_DXDATA_URL;
+  if (!dxdataUrl) throw new Error("VITE_DXDATA_URL is missing in .env");
+  const dxResponse = await fetch(dxdataUrl);
   const dxdata = await dxResponse.json();
 
-  const otogeResponse = await fetch("https://raw.githubusercontent.com/zvuc/otoge-db/master/maimai/data/maimai_songs.json");
+  const otogeDbUrl = process.env.VITE_OTOGE_DB_URL;
+  if (!otogeDbUrl) throw new Error("VITE_OTOGE_DB_URL is missing in .env");
+  const otogeResponse = await fetch(otogeDbUrl);
   const otogeData = await otogeResponse.json();
 
   const imageMap = new Map<string, string>();
