@@ -12,7 +12,9 @@ import {
   Settings2,
   LayoutGrid,
   List as ListIcon,
-  Shuffle
+  Shuffle,
+  X,
+  Info
 } from 'lucide-react';
 import { MaimaiSong, Batch } from './types';
 import { BATCHES } from './constants';
@@ -98,6 +100,8 @@ export default function App() {
   const [completedSongs, setCompletedSongs] = useState<Set<string>>(new Set());
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [randomSeed, setRandomSeed] = useState(1337); // Static seed for stable progression list
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [hideWelcomeFuture, setHideWelcomeFuture] = useState(false);
 
   useEffect(() => {
     async function init() {
@@ -109,9 +113,21 @@ export default function App() {
       if (saved) {
         setCompletedSongs(new Set(JSON.parse(saved)));
       }
+
+      const hideWelcome = localStorage.getItem('maimai-hide-welcome');
+      if (hideWelcome !== 'true') {
+        setShowWelcome(true);
+      }
     }
     init();
   }, []);
+
+  const closeWelcomeModal = () => {
+    if (hideWelcomeFuture) {
+      localStorage.setItem('maimai-hide-welcome', 'true');
+    }
+    setShowWelcome(false);
+  };
 
 
   // Build display batches from song data
@@ -344,6 +360,108 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-slate-200 font-sans selection:bg-blue-500/30">
+      {/* Welcome Modal */}
+      <AnimatePresence>
+        {showWelcome && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            onClick={closeWelcomeModal}
+          >
+            <motion.div 
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="bg-[#0f1115] border border-white/10 rounded-3xl max-w-2xl w-full p-8 shadow-2xl relative"
+              onClick={e => e.stopPropagation()}
+            >
+              <button 
+                onClick={closeWelcomeModal}
+                className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                  <Info className="w-5 h-5" />
+                </div>
+                <h2 className="text-2xl font-bold text-white">maimai Progression List</h2>
+              </div>
+
+              <div className="space-y-6 text-slate-300 text-sm leading-relaxed max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                <p className="text-base text-slate-200">
+                  This list is a structured path through maimai's difficulty tiers, designed to help you improve naturally rather than grinding randomly.
+                </p>
+
+                <div>
+                  <h3 className="text-white font-bold text-base mb-2 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500 block"></span>
+                    How it works
+                  </h3>
+                  <p>
+                    Batches 1–7 are random ranges — play charts within the given level window until the range feels comfortable. Batches 8 onwards are curated, specific charts chosen because they teach particular skills in a logical order.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-white font-bold text-base mb-2 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500 block"></span>
+                    When to move on
+                  </h3>
+                  <p>
+                    Don't rush. Move to the next batch when you can SSS most charts in the current one cleanly — not perfectly, but without your accuracy visibly collapsing midway through. For curated batches, pay attention to the stretch charts at the end: those are the readiness check.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-white font-bold text-base mb-2 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500 block"></span>
+                    A few things to know
+                  </h3>
+                  <ul className="space-y-3 list-disc list-inside">
+                    <li>
+                      <span className="text-white font-medium">Chart constants</span> (the decimal numbers like 13.4 or 14.7) reflect the official internal rating, but community experience sometimes disagrees. Charts flagged with a ↑ community or individual difference note play harder than their number suggests — treat those honestly rather than assuming you're just having a bad day.
+                    </li>
+                    <li>
+                      <span className="text-white font-medium">Some charts in the higher batches require chart-specific knowledge.</span> If something feels impossibly hard the first few times but suddenly clicks, that's normal — certain patterns need a few repetitions to internalize, not more raw skill.
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-200">
+                  <strong>This list is not exhaustive.</strong> It's a guide, not a rulebook. If a chart feels wrong for where you are, skip it and come back later.
+                </div>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <div className="relative flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 group-hover:border-blue-400 transition-colors">
+                    <input 
+                      type="checkbox" 
+                      className="peer sr-only"
+                      checked={hideWelcomeFuture}
+                      onChange={(e) => setHideWelcomeFuture(e.target.checked)}
+                    />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 opacity-0 peer-checked:opacity-100 transition-opacity absolute" />
+                  </div>
+                  <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Don't show this again</span>
+                </label>
+                
+                <button 
+                  onClick={closeWelcomeModal}
+                  className="px-6 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-400 text-white font-medium shadow-lg shadow-blue-500/20 transition-all active:scale-95 w-full sm:w-auto"
+                >
+                  I understand
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[#0a0a0c]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
