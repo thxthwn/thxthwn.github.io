@@ -1,6 +1,7 @@
+/// <reference types="vite/client" />
 import { MaimaiSong, SongSheet } from "../types";
 
-const DXDATA_URL = "https://raw.githubusercontent.com/gekichumai/dxrating/main/packages/dxdata/dxdata.json";
+const DXDATA_URL = import.meta.env.VITE_DXDATA_URL;
 
 export async function fetchMaimaiSongs(): Promise<MaimaiSong[]> {
   try {
@@ -51,8 +52,8 @@ export function formatDifficulty(level: string | undefined): string {
 
 export function getImageUrl(song: MaimaiSong): string {
   if (song.imageName) {
-    // Direct link to the image source used by dxrating
-    return `https://shama.dxrating.net/images/cover/v2/${song.imageName}.jpg`;
+    // Direct link to the image source used by dxrating via .env
+    return `${import.meta.env.VITE_COVER_BASE_URL}${song.imageName}.jpg`;
   }
   return "https://picsum.photos/seed/maimai/200/200";
 }
