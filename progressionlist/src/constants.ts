@@ -183,3 +183,30 @@ export const BATCHES: Batch[] = [
     ],
   },
 ];
+
+export const FRAUD_CHARTS = [
+  "MEGATON BLAST",  "AMAZING MIGHTYYYY!!!!",  "りばーぶ",  "マリアをはげませ",  "エピクロスの虹はもう見えない",
+  "Entrance",  "アマツキツネ",  "Quartet Theme［Reborn］",  "Oshama Scramble!",  "∀",
+  "色は匂へど散りぬるを",  "Titania",  "宛城、炎上！！",  "YURUSHITE",  "Sound Chimera",
+  "神室雪月花",  "Urban Crusher [Remix]",  "System “Z”",  "Pixel Voyage",  "Change Our MIRAI！",
+  "Change Our MIRAI!",  "Bad Apple!! feat.nomico (REDALiCE Remix)",  "NULCTRL",  "居並ぶ穀物と溜息まじりの運送屋",
+  "絡繰りドール",  "KHYMΞXΛ",  "ozma",  "神威",  "FREEDOM DiVE (tpz Overcute Remix)",
+  "もぺもぺ",  "Black Out",  "Valsqotch",  "おても☆Yan",  "ケロ⑨destiny",
+  "ねぇ、壊れタ人形ハ何処へ棄テらレるノ？",  "前前前世",  "Stardust Memories",  "Paranoia",
+  "Dive into The Sky ～initialized～",  "下克上々",  "ノイローゼ",  "INFiNiTE ENERZY -Overdoze-",
+  "ENERGY SYNERGY MATRIX",  "Turn around",  "Boys O'Clock",  "カゲロウデイズ",  "Flashkick",
+  "すーぱーぬこになれんかった",  "アンクローズ・ヒューマン",  "紅星ミゼラブル～廃憶編",  "阿修羅ちゃん",
+  "Λzure Vixen",  "幾四音-Ixion-",  "Club Ibuki in Break All",  "サドマミホリック",
+  "Round Round Spinning Around",  "The wheel to the right",  "Lionheart",  "Brain Power",
+  "Technicians High",  "Rush-More",  "チューリングの跡",  "最終鬼畜妹フランドール・Ｓ",
+  "sølips",  "[X]",  "Xaleid◆scopiX",  "DADDY MULK -Groove remix-",  "ハジマリノピアノ",
+  "バグ",  "系ぎて",  "FLOWER",  "Hyper Active",  "Scream out! -maimai SONIC WASHER Edit-",
+  "KING is BACK!!",  "GO BACK 2 YOUR RAVE",  "CHAOS",  "We Gonna Party",  "FEEL the BEATS",
+  "ツムギボシ",  "華の集落、秋のお届け",  "Outlaw's Lullaby",  "Nitrous Fury",
+  "患部で止まってすぐ溶ける～狂気の優曇華院",  "人里に下ったアタイがいつの間にか社畜になっていた件",
+  "天火明命",  "Maxi",  "Ultranova",  "Ragnarok",  "METATRON",  "Lividi",
+  "Love’s Theme of BADASS ～バッド・アス 愛のテーマ～",  "Beat Of Mind",  "Calamity Fortune",
+  "conflict",  "Desperado Waltz",  "Maboroshi",  "Grievous Lady",  "花と、雪と、ドラムンベース。",
+  "Halcyon",  "Xevel",  "CITRUS MONSTER",  "Hurtling Boys",  "FFT",  "Axeria",  "Fragrance",
+  "雷切-RAIKIRI-",  "零號車輛",  "larva",  "Alea jacta est!",  "封焔の135秒"
+];

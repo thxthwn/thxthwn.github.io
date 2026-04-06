@@ -17,7 +17,7 @@ import {
   Info
 } from 'lucide-react';
 import { MaimaiSong, Batch } from './types';
-import { BATCHES } from './constants';
+import { BATCHES, FRAUD_CHARTS } from './constants';
 import { fetchMaimaiSongs, getImageUrl } from './services/maimaiService';
 import { cn } from './lib/utils';
 
@@ -557,7 +557,11 @@ export default function App() {
                             <span className="text-xs text-cyan-400 font-bold bg-cyan-400/10 px-1.5 py-0.5 rounded">
                               i{recommendation.internal.toFixed(1)}
                             </span>
-                            <span className="text-xs text-slate-500">Suggested based on your ceiling</span>
+                            {FRAUD_CHARTS.includes(recommendation.song.title) && (
+                              <div title="Community rating: Harder than internal level" className="flex items-center">
+                                <TrendingUp className="w-5 h-5 text-red-500 animate-bounce" />
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -753,7 +757,14 @@ export default function App() {
                            />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="font-bold text-white truncate">{entry.song.title}</h4>
+                          <div className="flex items-center gap-2 mb-1">
+                            <h4 className="font-bold text-white truncate">{entry.song.title}</h4>
+                            {FRAUD_CHARTS.includes(entry.song.title) && (
+                              <div title="Community rating: Harder than internal level" className="shrink-0 flex items-center">
+                                <TrendingUp className="w-4 h-4 text-red-500 animate-bounce" />
+                              </div>
+                            )}
+                          </div>
                           <p className="text-xs text-slate-500 truncate mb-2">{entry.song.artist}</p>
                           <div className="flex items-center gap-2">
                             <span className={cn(
