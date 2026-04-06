@@ -90,7 +90,7 @@ export const BATCHES: Batch[] = [
     name: "Batch 10",
     description: "Curated song list — Intense vocal and electronic tracks.",
     songTitles: [
-      "ロストワンの号哭 (MAS)",
+      "ありふれたせかいせいふく",
       "Oshama Scramble!",
       "エスオーエス",
       "分解収束テイル",
@@ -133,7 +133,7 @@ export const BATCHES: Batch[] = [
     description: "Curated song list — Expert-level endurance tests.",
     songTitles: [
       "初音ミクの激唱",
-      "VIIIbit Explorer (DX)",
+      "LAMIA",
       "CITRUS MONSTER",
       "Credits",
       "雷切-RAIKIRI- (MAS)",
@@ -148,9 +148,9 @@ export const BATCHES: Batch[] = [
     songTitles: [
       "End Time",
       "Lia=Fail",
-      "Metamorphosism",
+      "Re:Unknown X",
       "GIGANTØMAKHIA",
-      "AMAZING MIGHTYYY!!!!",
+      "KHYMΞXΛ",
       "怒槌",
       "Glorious Crown",
     ],
@@ -162,7 +162,7 @@ export const BATCHES: Batch[] = [
     songTitles: [
       "WiPE OUT MEMORIES",
       "氷滅の135小節",
-      "Divide et Empera!",
+      "Divide et impera!",
       "7 Wonders",
       "躯樹の墓守",
       "sølips",
