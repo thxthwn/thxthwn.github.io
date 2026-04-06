@@ -3,7 +3,7 @@ import { Batch } from "./types";
 export const BATCHES: Batch[] = [
   {
     id: "batch-1",
-    name: "Batch 1",
+    name: "七級",
     description: "Random 10s — Building fundamentals with Level 10 charts.",
     minLevel: 10.0,
     maxLevel: 10.9,
@@ -11,7 +11,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-2",
-    name: "Batch 2",
+    name: "六級",
     description: "Random 10+s — Pushing beyond Level 10 into harder territory.",
     minLevel: 10.7,
     maxLevel: 10.9,
@@ -19,7 +19,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-3",
-    name: "Batch 3",
+    name: "五級",
     description: "Random 11s — Entering Level 11 with more complex patterns.",
     minLevel: 11.0,
     maxLevel: 11.6,
@@ -27,7 +27,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-4",
-    name: "Batch 4",
+    name: "四級",
     description: "Random 11+s — Upper Level 11 challenges.",
     minLevel: 11.7,
     maxLevel: 11.9,
@@ -35,7 +35,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-5",
-    name: "Batch 5",
+    name: "三級",
     description: "Random 12.0–12.2 — Introduction to Level 12.",
     minLevel: 12.0,
     maxLevel: 12.2,
@@ -43,7 +43,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-6",
-    name: "Batch 6",
+    name: "二級",
     description: "Random 12.3–12.5 — Mid Level 12 challenges.",
     minLevel: 12.3,
     maxLevel: 12.5,
@@ -51,7 +51,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-7",
-    name: "Batch 7",
+    name: "一級",
     description: "Random 12.6–12.9 — Upper Level 12, approaching 13.",
     minLevel: 12.6,
     maxLevel: 12.9,
@@ -59,7 +59,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-8",
-    name: "Batch 8",
+    name: "初段",
     description: "Curated song list — First set of specific challenges.",
     songTitles: [
       "Barbed Eye",
@@ -73,7 +73,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-9",
-    name: "Batch 9",
+    name: "二段",
     description: "Curated song list — Iconic rhythm game tracks.",
     songTitles: [
       "千本桜",
@@ -87,7 +87,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-10",
-    name: "Batch 10",
+    name: "三段",
     description: "Curated song list — Intense vocal and electronic tracks.",
     songTitles: [
       "ありふれたせかいせいふく",
@@ -101,7 +101,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-11",
-    name: "Batch 11",
+    name: "四段",
     description: "Curated song list — A mix of elegant and aggressive charts.",
     songTitles: [
       "Sakura Fubuki",
@@ -115,7 +115,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-12",
-    name: "Batch 12",
+    name: "五段",
     description: "Curated song list — High-tier technical challenges.",
     songTitles: [
       "B.M.S.",
@@ -129,7 +129,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-13",
-    name: "Batch 13",
+    name: "六段",
     description: "Curated song list — Expert-level endurance tests.",
     songTitles: [
       "初音ミクの激唱",
@@ -143,7 +143,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-14",
-    name: "Batch 14",
+    name: "七段",
     description: "Curated song list — Near-peak difficulty charts.",
     songTitles: [
       "End Time",
@@ -157,7 +157,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-15",
-    name: "Batch 15",
+    name: "八段",
     description: "Curated song list — The hardest tier.",
     songTitles: [
       "WiPE OUT MEMORIES",
@@ -171,7 +171,7 @@ export const BATCHES: Batch[] = [
   },
   {
     id: "batch-16",
-    name: "Batch 16",
+    name: "皆伝",
     description: "Curated song list — The pinnacle.",
     songTitles: [
       "raputa",
