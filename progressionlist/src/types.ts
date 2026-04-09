@@ -44,7 +44,7 @@ export interface Batch {
   maxLevel?: number;
   randomCount?: [number, number]; // [min, max] songs to pick randomly
   // For specific-song batches (Batches 8-16)
-  songTitles?: string[];
+  songTitles?: (string | { title: string; tags: string[] })[];
 }
 
 export type SkillCategory = 'Stamina' | 'Technical' | 'Speed' | 'Slides' | 'Trills' | 'Jackhammers' | 'General';

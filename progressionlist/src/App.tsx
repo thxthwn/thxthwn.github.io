@@ -17,7 +17,7 @@ import {
   Info
 } from 'lucide-react';
 import { MaimaiSong, Batch } from './types';
-import { BATCHES, FRAUD_CHARTS } from './constants';
+import { BATCHES, FRAUD_CHARTS, SKILL_COLORS } from './constants';
 import { fetchMaimaiSongs, getImageUrl } from './services/maimaiService';
 import { cn } from './lib/utils';
 
@@ -28,6 +28,7 @@ interface DynamicEntry {
   internalLevel: number;
   displayLevel: string;
   batchId: string;
+  tags?: string[];
 }
 
 interface DisplayBatch extends Batch {
@@ -142,7 +143,9 @@ export default function App() {
         // Curated song list batch
         const entries: DynamicEntry[] = [];
 
-        batch.songTitles.forEach(rawTitle => {
+        batch.songTitles.forEach(item => {
+          const rawTitle = typeof item === 'string' ? item : item.title;
+          const tags = typeof item === 'string' ? [] : (item.tags || []);
           const hint = parseSongTitle(rawTitle);
           
           // Find matching song by title (fuzzy: case-insensitive, trimmed)
@@ -185,6 +188,7 @@ export default function App() {
                 internalLevel: sheet.internalLevelValue,
                 displayLevel: sheet.level,
                 batchId: batch.id,
+                tags: tags,
               });
             }
           });
@@ -790,6 +794,19 @@ export default function App() {
                               i{entry.internalLevel.toFixed(1)}
                             </span>
                           </div>
+                          {entry.tags && entry.tags.length > 0 && (
+                            <div className="flex items-center gap-1 mt-1.5 flex-wrap">
+                              {entry.tags.map(tag => (
+                                <span 
+                                  key={tag} 
+                                  className="text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm opacity-90"
+                                  style={{ backgroundColor: SKILL_COLORS[tag] || '#CBD5E1', color: '#1E293B' }}
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
                         </div>
                         <div 
                           className={cn(

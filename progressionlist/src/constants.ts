@@ -104,13 +104,13 @@ export const BATCHES: Batch[] = [
     name: "四段",
     description: "Curated song list — A mix of elegant and aggressive charts.",
     songTitles: [
-      "Sakura Fubuki",
-      "華の集落、秋のお届け",
-      "FLOWER (MAS)",
-      "Good Bye, Mr. Jack",
-      "Ultranova",
-      "Jack-the-Ripper◆",
-      "Lividi",
+      { title: "Sakura Fubuki",        tags: ["Tech", "Tricky"] },
+      { title: "華の集落、秋のお届け",   tags: ["Touch", "Tech"] },
+      { title: "FLOWER (MAS)",               tags: ["Spin", "Tech"] },
+      { title: "Good Bye, Mr. Jack",   tags: ["Tech", "Hold"] },
+      { title: "Ultranova",            tags: ["Stamina", "Balanced"] },
+      { title: "Jack-the-Ripper◆",    tags: ["Speed", "Tech"] },
+      { title: "Lividi",               tags: ["Stamina", "Tech"] }
     ],
   },
   {
@@ -118,13 +118,13 @@ export const BATCHES: Batch[] = [
     name: "五段",
     description: "Curated song list — High-tier technical challenges.",
     songTitles: [
-      "B.M.S.",
-      "Halcyon (STD)",
-      "Scarlet Lance",
-      "花と、雪と、ドラムンベース。 (MAS)",
-      "World Vanquisher",
-      "HERA",
-      "極圏",
+      { title: "B.M.S.",                       tags: ["Hold", "Stamina"] },
+      { title: "Halcyon (STD)",                tags: ["Touch", "Tech"] },
+      { title: "Scarlet Lance",                tags: ["Stamina", "Breaks"] },
+      { title: "花と、雪と、ドラムンベース。 (MAS)",   tags: ["Spin", "Tech"] },
+      { title: "World Vanquisher",             tags: ["Stamina", "Spin"] },
+      { title: "HERA",                         tags: ["Breaks", "Tech"] },
+      { title: "極圏",                          tags: ["Speed", "Tech"] }
     ],
   },
   {
@@ -132,13 +132,13 @@ export const BATCHES: Batch[] = [
     name: "六段",
     description: "Curated song list — Expert-level endurance tests.",
     songTitles: [
-      "初音ミクの激唱",
-      "LAMIA",
-      "CITRUS MONSTER",
-      "Credits",
-      "雷切-RAIKIRI- (MAS)",
-      "TiamaT:F minor",
-      "Åntinomiε",
+      { title: "初音ミクの激唱",   tags: ["Tech", "Tricky"] },
+      { title: "LAMIA",           tags: ["Breaks", "Stamina"] },
+      { title: "CITRUS MONSTER",  tags: ["Speed"] },
+      { title: "Credits",         tags: ["Tricky"] },
+      { title: "雷切-RAIKIRI- (MAS)",   tags: ["Stamina"] },
+      { title: "TiamaT:F minor",  tags: ["Speed", "Tech"] },
+      { title: "Åntinomiε",       tags: ["Breaks", "Speed"] }
     ],
   },
   {
@@ -146,13 +146,13 @@ export const BATCHES: Batch[] = [
     name: "七段",
     description: "Curated song list — Near-peak difficulty charts.",
     songTitles: [
-      "End Time",
-      "Lia=Fail",
-      "Re:Unknown X",
-      "GIGANTØMAKHIA",
-      "KHYMΞXΛ",
-      "怒槌",
-      "Glorious Crown",
+      { title: "End Time",        tags: ["Stamina", "Balanced"] },
+      { title: "Lia=Fail",        tags: ["Spin", "Tech"] },
+      { title: "Re:Unknown X",    tags: ["Notes", "Stamina"] },
+      { title: "GIGANTØMAKHIA",   tags: ["Breaks", "Spin"] },
+      { title: "KHYMΞXΛ",         tags: ["Breaks", "Tricky"] },
+      { title: "怒槌",             tags: ["Spin", "Stamina"] },
+      { title: "Glorious Crown",  tags: ["Spin"] }
     ],
   },
   {
@@ -160,13 +160,13 @@ export const BATCHES: Batch[] = [
     name: "八段",
     description: "Curated song list — The hardest tier.",
     songTitles: [
-      "WiPE OUT MEMORIES",
-      "氷滅の135小節",
-      "Divide et impera!",
-      "7 Wonders",
-      "躯樹の墓守",
-      "sølips",
-      "PANDORA PARADOXXX (MAS)",
+      { title: "WiPE OUT MEMORIES",   tags: ["Tech", "Breaks"] },
+      { title: "氷滅の135小節",        tags: ["Breaks", "Spin"] },
+      { title: "Divide et impera!",   tags: ["Notes", "Breaks"] },
+      { title: "7 Wonders",           tags: ["Stamina"] },
+      { title: "躯樹の墓守",           tags: ["Spin", "Tech"] },
+      { title: "sølips",              tags: ["Tech", "Tricky"] },
+      { title: "PANDORA PARADOXXX (MAS)",   tags: ["Spin", "Notes"] }
     ],
   },
   {
@@ -174,15 +174,28 @@ export const BATCHES: Batch[] = [
     name: "皆伝",
     description: "Curated song list — The pinnacle.",
     songTitles: [
-      "raputa",
-      "World's end loneliness",
-      "the EmpErroR",
-      "PANDORA PARADOXXX",
-      "系ぎて",
-      "QZKago Requiem",
+      { title: "raputa",                  tags: ["Speed"] },
+      { title: "World's end loneliness",  tags: ["Stamina", "Tech"] },
+      { title: "the EmpErroR",            tags: ["Speed"] },
+      { title: "PANDORA PARADOXXX",       tags: ["Spin", "Notes"] }, // the prompt says PANDORA PARADOXXX again, let's keep it but actually the original had PANDORA PARADOXXX. Let's use what the prompt JSON provided, but wait. Original had PANDORA PARADOXXX. Let's look.
+      { title: "系ぎて",                   tags: ["Spin", "Tricky"] },
+      { title: "QZKago Requiem",          tags: ["Spin", "Speed"] }
     ],
   },
 ];
+
+export const SKILL_COLORS: Record<string, string> = {
+  "Stamina": "#F09595",
+  "Speed":   "#FAC775",
+  "Tech":    "#85B7EB",
+  "Spin":    "#5DCAA5",
+  "Breaks":  "#AFA9EC",
+  "Tricky":  "#F0997B",
+  "Touch":   "#ED93B1",
+  "Hold":    "#B4B2A9",
+  "Notes":   "#97C459",
+  "Balanced":"#D3D1C7"
+};
 
 export const FRAUD_CHARTS = [
   "MEGATON BLAST",  "AMAZING MIGHTYYYY!!!!",  "りばーぶ",  "マリアをはげませ",  "エピクロスの虹はもう見えない",
