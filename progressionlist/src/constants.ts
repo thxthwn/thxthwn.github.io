@@ -118,12 +118,12 @@ export const BATCHES: Batch[] = [
     name: "五段",
     description: "Curated song list — High-tier technical challenges.",
     songTitles: [
-      { title: "B.M.S.", tags: ["Hold", "Stamina"] },
-      { title: "Halcyon (STD)", tags: ["Touch", "Tech"] },
+      { title: "B.M.S.",                       tags: ["Tricky"] },
+      { title: "Halcyon (STD)",                tags: ["Tech"] },
       { title: "Scarlet Lance", tags: ["Stamina", "Breaks"] },
       { title: "花と、雪と、ドラムンベース。 (MAS)", tags: ["Spin", "Tech"] },
-      { title: "World Vanquisher", tags: ["Stamina", "Spin"] },
-      { title: "HERA", tags: ["Breaks", "Tech"] },
+      { title: "World Vanquisher",             tags: ["Stamina", "Tech"] },
+      { title: "HERA",                         tags: ["Tricky", "Notes"] },
       { title: "極圏", tags: ["Speed", "Tech"] }
     ],
   },
@@ -132,11 +132,11 @@ export const BATCHES: Batch[] = [
     name: "六段",
     description: "Curated song list — Expert-level endurance tests.",
     songTitles: [
-      { title: "初音ミクの激唱", tags: ["Tech", "Tricky"] },
+      { title: "初音ミクの激唱",   tags: ["Speed", "Notes"] },
       { title: "LAMIA", tags: ["Breaks", "Stamina"] },
       { title: "CITRUS MONSTER", tags: ["Speed"] },
       { title: "Credits", tags: ["Tricky"] },
-      { title: "雷切-RAIKIRI- (MAS)", tags: ["Stamina"] },
+      { title: "雷切-RAIKIRI- (MAS)",   tags: ["Tech"] },
       { title: "TiamaT:F minor", tags: ["Speed", "Tech"] },
       { title: "Åntinomiε", tags: ["Breaks", "Speed"] }
     ],
@@ -146,7 +146,7 @@ export const BATCHES: Batch[] = [
     name: "七段",
     description: "Curated song list — Near-peak difficulty charts.",
     songTitles: [
-      { title: "End Time", tags: ["Stamina", "Balanced"] },
+      { title: "End Time",        tags: ["Stamina", "Notes"] },
       { title: "Lia=Fail", tags: ["Spin", "Tech"] },
       { title: "Re:Unknown X", tags: ["Notes", "Stamina"] },
       { title: "GIGANTØMAKHIA", tags: ["Breaks", "Spin"] },
@@ -160,7 +160,7 @@ export const BATCHES: Batch[] = [
     name: "八段",
     description: "Curated song list — The hardest tier.",
     songTitles: [
-      { title: "WiPE OUT MEMORIES", tags: ["Tech", "Breaks"] },
+      { title: "WiPE OUT MEMORIES",   tags: ["Breaks", "Speed"] },
       { title: "氷滅の135小節", tags: ["Breaks", "Spin"] },
       { title: "Divide et impera!", tags: ["Notes", "Breaks"] },
       { title: "7 Wonders", tags: ["Stamina"] },
