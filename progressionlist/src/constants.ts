@@ -104,13 +104,13 @@ export const BATCHES: Batch[] = [
     name: "四段",
     description: "Curated song list — A mix of elegant and aggressive charts.",
     songTitles: [
-      { title: "Sakura Fubuki",        tags: ["Tech", "Tricky"] },
-      { title: "華の集落、秋のお届け",   tags: ["Touch", "Tech"] },
-      { title: "FLOWER (MAS)",               tags: ["Spin", "Tech"] },
-      { title: "Good Bye, Mr. Jack",   tags: ["Tech", "Hold"] },
-      { title: "Ultranova",            tags: ["Stamina", "Balanced"] },
-      { title: "Jack-the-Ripper◆",    tags: ["Speed", "Tech"] },
-      { title: "Lividi",               tags: ["Stamina", "Tech"] }
+      { title: "Sakura Fubuki", tags: ["Tech", "Tricky"] },
+      { title: "華の集落、秋のお届け", tags: ["Touch", "Tech"] },
+      { title: "FLOWER (MAS)", tags: ["Spin", "Tech"] },
+      { title: "Good Bye, Mr. Jack", tags: ["Tech", "Hold"] },
+      { title: "Ultranova", tags: ["Stamina", "Balanced"] },
+      { title: "Jack-the-Ripper◆", tags: ["Speed", "Tech"] },
+      { title: "Lividi", tags: ["Stamina", "Tech"] }
     ],
   },
   {
@@ -118,13 +118,13 @@ export const BATCHES: Batch[] = [
     name: "五段",
     description: "Curated song list — High-tier technical challenges.",
     songTitles: [
-      { title: "B.M.S.",                       tags: ["Hold", "Stamina"] },
-      { title: "Halcyon (STD)",                tags: ["Touch", "Tech"] },
-      { title: "Scarlet Lance",                tags: ["Stamina", "Breaks"] },
-      { title: "花と、雪と、ドラムンベース。 (MAS)",   tags: ["Spin", "Tech"] },
-      { title: "World Vanquisher",             tags: ["Stamina", "Spin"] },
-      { title: "HERA",                         tags: ["Breaks", "Tech"] },
-      { title: "極圏",                          tags: ["Speed", "Tech"] }
+      { title: "B.M.S.", tags: ["Hold", "Stamina"] },
+      { title: "Halcyon (STD)", tags: ["Touch", "Tech"] },
+      { title: "Scarlet Lance", tags: ["Stamina", "Breaks"] },
+      { title: "花と、雪と、ドラムンベース。 (MAS)", tags: ["Spin", "Tech"] },
+      { title: "World Vanquisher", tags: ["Stamina", "Spin"] },
+      { title: "HERA", tags: ["Breaks", "Tech"] },
+      { title: "極圏", tags: ["Speed", "Tech"] }
     ],
   },
   {
@@ -132,13 +132,13 @@ export const BATCHES: Batch[] = [
     name: "六段",
     description: "Curated song list — Expert-level endurance tests.",
     songTitles: [
-      { title: "初音ミクの激唱",   tags: ["Tech", "Tricky"] },
-      { title: "LAMIA",           tags: ["Breaks", "Stamina"] },
-      { title: "CITRUS MONSTER",  tags: ["Speed"] },
-      { title: "Credits",         tags: ["Tricky"] },
-      { title: "雷切-RAIKIRI- (MAS)",   tags: ["Stamina"] },
-      { title: "TiamaT:F minor",  tags: ["Speed", "Tech"] },
-      { title: "Åntinomiε",       tags: ["Breaks", "Speed"] }
+      { title: "初音ミクの激唱", tags: ["Tech", "Tricky"] },
+      { title: "LAMIA", tags: ["Breaks", "Stamina"] },
+      { title: "CITRUS MONSTER", tags: ["Speed"] },
+      { title: "Credits", tags: ["Tricky"] },
+      { title: "雷切-RAIKIRI- (MAS)", tags: ["Stamina"] },
+      { title: "TiamaT:F minor", tags: ["Speed", "Tech"] },
+      { title: "Åntinomiε", tags: ["Breaks", "Speed"] }
     ],
   },
   {
@@ -146,13 +146,13 @@ export const BATCHES: Batch[] = [
     name: "七段",
     description: "Curated song list — Near-peak difficulty charts.",
     songTitles: [
-      { title: "End Time",        tags: ["Stamina", "Balanced"] },
-      { title: "Lia=Fail",        tags: ["Spin", "Tech"] },
-      { title: "Re:Unknown X",    tags: ["Notes", "Stamina"] },
-      { title: "GIGANTØMAKHIA",   tags: ["Breaks", "Spin"] },
-      { title: "KHYMΞXΛ",         tags: ["Breaks", "Tricky"] },
-      { title: "怒槌",             tags: ["Spin", "Stamina"] },
-      { title: "Glorious Crown",  tags: ["Spin"] }
+      { title: "End Time", tags: ["Stamina", "Balanced"] },
+      { title: "Lia=Fail", tags: ["Spin", "Tech"] },
+      { title: "Re:Unknown X", tags: ["Notes", "Stamina"] },
+      { title: "GIGANTØMAKHIA", tags: ["Breaks", "Spin"] },
+      { title: "KHYMΞXΛ", tags: ["Breaks", "Tricky"] },
+      { title: "怒槌", tags: ["Spin", "Stamina"] },
+      { title: "Glorious Crown", tags: ["Spin"] }
     ],
   },
   {
@@ -160,13 +160,13 @@ export const BATCHES: Batch[] = [
     name: "八段",
     description: "Curated song list — The hardest tier.",
     songTitles: [
-      { title: "WiPE OUT MEMORIES",   tags: ["Tech", "Breaks"] },
-      { title: "氷滅の135小節",        tags: ["Breaks", "Spin"] },
-      { title: "Divide et impera!",   tags: ["Notes", "Breaks"] },
-      { title: "7 Wonders",           tags: ["Stamina"] },
-      { title: "躯樹の墓守",           tags: ["Spin", "Tech"] },
-      { title: "sølips",              tags: ["Tech", "Tricky"] },
-      { title: "PANDORA PARADOXXX (MAS)",   tags: ["Spin", "Notes"] }
+      { title: "WiPE OUT MEMORIES", tags: ["Tech", "Breaks"] },
+      { title: "氷滅の135小節", tags: ["Breaks", "Spin"] },
+      { title: "Divide et impera!", tags: ["Notes", "Breaks"] },
+      { title: "7 Wonders", tags: ["Stamina"] },
+      { title: "躯樹の墓守", tags: ["Spin", "Tech"] },
+      { title: "sølips", tags: ["Tech", "Tricky"] },
+      { title: "PANDORA PARADOXXX (MAS)", tags: ["Spin", "Notes"] }
     ],
   },
   {
@@ -174,52 +174,52 @@ export const BATCHES: Batch[] = [
     name: "皆伝",
     description: "Curated song list — The pinnacle.",
     songTitles: [
-      { title: "raputa",                  tags: ["Speed"] },
-      { title: "World's end loneliness",  tags: ["Stamina", "Tech"] },
-      { title: "the EmpErroR",            tags: ["Speed"] },
-      { title: "PANDORA PARADOXXX",       tags: ["Spin", "Notes"] }, // the prompt says PANDORA PARADOXXX again, let's keep it but actually the original had PANDORA PARADOXXX. Let's use what the prompt JSON provided, but wait. Original had PANDORA PARADOXXX. Let's look.
-      { title: "系ぎて",                   tags: ["Spin", "Tricky"] },
-      { title: "QZKago Requiem",          tags: ["Spin", "Speed"] }
+      { title: "raputa", tags: ["Speed"] },
+      { title: "World's end loneliness", tags: ["Stamina", "Tech"] },
+      { title: "the EmpErroR", tags: ["Speed"] },
+      { title: "PANDORA PARADOXXX", tags: ["Spin", "Notes"] }, // the prompt says PANDORA PARADOXXX again, let's keep it but actually the original had PANDORA PARADOXXX. Let's use what the prompt JSON provided, but wait. Original had PANDORA PARADOXXX. Let's look.
+      { title: "系ぎて", tags: ["Spin", "Tricky"] },
+      { title: "QZKago Requiem", tags: ["Spin", "Speed"] }
     ],
   },
 ];
 
 export const SKILL_COLORS: Record<string, string> = {
   "Stamina": "#F09595",
-  "Speed":   "#FAC775",
-  "Tech":    "#85B7EB",
-  "Spin":    "#5DCAA5",
-  "Breaks":  "#AFA9EC",
-  "Tricky":  "#F0997B",
-  "Touch":   "#ED93B1",
-  "Hold":    "#B4B2A9",
-  "Notes":   "#97C459",
-  "Balanced":"#D3D1C7"
+  "Speed": "#FAC775",
+  "Tech": "#85B7EB",
+  "Spin": "#5DCAA5",
+  "Breaks": "#AFA9EC",
+  "Tricky": "#F0997B",
+  "Touch": "#ED93B1",
+  "Hold": "#B4B2A9",
+  "Notes": "#97C459",
+  "Balanced": "#D3D1C7"
 };
 
 export const FRAUD_CHARTS = [
-  "MEGATON BLAST",  "AMAZING MIGHTYYYY!!!!",  "りばーぶ",  "マリアをはげませ",  "エピクロスの虹はもう見えない",
-  "Entrance",  "アマツキツネ",  "Quartet Theme［Reborn］",  "Oshama Scramble!",  "∀",
-  "色は匂へど散りぬるを",  "Titania",  "宛城、炎上！！",  "YURUSHITE",  "Sound Chimera",
-  "神室雪月花",  "Urban Crusher [Remix]",  "System “Z”",  "Pixel Voyage",  "Change Our MIRAI！",
-  "Change Our MIRAI!",  "Bad Apple!! feat.nomico (REDALiCE Remix)",  "NULCTRL",  "居並ぶ穀物と溜息まじりの運送屋",
-  "絡繰りドール",  "KHYMΞXΛ",  "ozma",  "神威",  "FREEDOM DiVE (tpz Overcute Remix)",
-  "もぺもぺ",  "Black Out",  "Valsqotch",  "おても☆Yan",  "ケロ⑨destiny",
-  "ねぇ、壊れタ人形ハ何処へ棄テらレるノ？",  "前前前世",  "Stardust Memories",  "Paranoia",
-  "Dive into The Sky ～initialized～",  "下克上々",  "ノイローゼ",  "INFiNiTE ENERZY -Overdoze-",
-  "ENERGY SYNERGY MATRIX",  "Turn around",  "Boys O'Clock",  "カゲロウデイズ",  "Flashkick",
-  "すーぱーぬこになれんかった",  "アンクローズ・ヒューマン",  "紅星ミゼラブル～廃憶編",  "阿修羅ちゃん",
-  "Λzure Vixen",  "幾四音-Ixion-",  "Club Ibuki in Break All",  "サドマミホリック",
-  "Round Round Spinning Around",  "The wheel to the right",  "Lionheart",  "Brain Power",
-  "Technicians High",  "Rush-More",  "チューリングの跡",  "最終鬼畜妹フランドール・Ｓ",
-  "sølips",  "[X]",  "Xaleid◆scopiX",  "DADDY MULK -Groove remix-",  "ハジマリノピアノ",
-  "バグ",  "系ぎて",  "FLOWER",  "Hyper Active",  "Scream out! -maimai SONIC WASHER Edit-",
-  "KING is BACK!!",  "GO BACK 2 YOUR RAVE",  "CHAOS",  "We Gonna Party",  "FEEL the BEATS",
-  "ツムギボシ",  "華の集落、秋のお届け",  "Outlaw's Lullaby",  "Nitrous Fury",
-  "患部で止まってすぐ溶ける～狂気の優曇華院",  "人里に下ったアタイがいつの間にか社畜になっていた件",
-  "天火明命",  "Maxi",  "Ultranova",  "Ragnarok",  "METATRON",  "Lividi",
-  "Love’s Theme of BADASS ～バッド・アス 愛のテーマ～",  "Beat Of Mind",  "Calamity Fortune",
-  "conflict",  "Desperado Waltz",  "Maboroshi",  "Grievous Lady",  "花と、雪と、ドラムンベース。",
-  "Halcyon",  "Xevel",  "CITRUS MONSTER",  "Hurtling Boys",  "FFT",  "Axeria",  "Fragrance",
-  "雷切-RAIKIRI-",  "零號車輛",  "larva",  "Alea jacta est!",  "封焔の135秒"
+  "MEGATON BLAST", "AMAZING MIGHTYYYY!!!!", "りばーぶ", "マリアをはげませ", "エピクロスの虹はもう見えない",
+  "Entrance", "アマツキツネ", "Quartet Theme［Reborn］", "Oshama Scramble!", "∀",
+  "色は匂へど散りぬるを", "Titania", "宛城、炎上！！", "YURUSHITE", "Sound Chimera",
+  "神室雪月花", "Urban Crusher [Remix]", "System “Z”", "Pixel Voyage", "Change Our MIRAI！",
+  "Change Our MIRAI!", "Bad Apple!! feat.nomico (REDALiCE Remix)", "NULCTRL", "居並ぶ穀物と溜息まじりの運送屋",
+  "絡繰りドール", "KHYMΞXΛ", "ozma", "神威", "FREEDOM DiVE (tpz Overcute Remix)",
+  "もぺもぺ", "Black Out", "Valsqotch", "おても☆Yan", "ケロ⑨destiny",
+  "ねぇ、壊れタ人形ハ何処へ棄テらレるノ？", "前前前世", "Stardust Memories", "Paranoia",
+  "Dive into The Sky ～initialized～", "下克上々", "ノイローゼ", "INFiNiTE ENERZY -Overdoze-",
+  "ENERGY SYNERGY MATRIX", "Turn around", "Boys O'Clock", "カゲロウデイズ", "Flashkick",
+  "すーぱーぬこになれんかった", "アンクローズ・ヒューマン", "紅星ミゼラブル～廃憶編", "阿修羅ちゃん",
+  "Λzure Vixen", "幾四音-Ixion-", "Club Ibuki in Break All", "サドマミホリック",
+  "Round Round Spinning Around", "The wheel to the right", "Lionheart", "Brain Power",
+  "Technicians High", "Rush-More", "チューリングの跡", "最終鬼畜妹フランドール・Ｓ",
+  "sølips", "[X]", "Xaleid◆scopiX", "DADDY MULK -Groove remix-", "ハジマリノピアノ",
+  "バグ", "系ぎて", "FLOWER", "Hyper Active", "Scream out! -maimai SONIC WASHER Edit-",
+  "KING is BACK!!", "GO BACK 2 YOUR RAVE", "CHAOS", "We Gonna Party", "FEEL the BEATS",
+  "ツムギボシ", "華の集落、秋のお届け", "Outlaw's Lullaby", "Nitrous Fury",
+  "患部で止まってすぐ溶ける～狂気の優曇華院", "人里に下ったアタイがいつの間にか社畜になっていた件",
+  "天火明命", "Maxi", "Ultranova", "Ragnarok", "METATRON", "Lividi",
+  "Love’s Theme of BADASS ～バッド・アス 愛のテーマ～", "Beat Of Mind", "Calamity Fortune",
+  "conflict", "Desperado Waltz", "Maboroshi", "Grievous Lady", "花と、雪と、ドラムンベース。",
+  "Halcyon", "Xevel", "CITRUS MONSTER", "Hurtling Boys", "FFT", "Axeria", "Fragrance",
+  "雷切-RAIKIRI-", "零號車輛", "larva", "Alea jacta est!", "封焔の135秒", "QZKago Requiem"
 ];
